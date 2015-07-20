@@ -2,20 +2,20 @@
 //  AppDelegate.swift
 //  madoka
 //
-//  Created by User on 2015/07/20.
-//  Copyright (c) 2015年 mtgto. All rights reserved.
+//  Created by mtgto on 2015/07/20.
+//  Copyright (c) 2015 mtgto. All rights reserved.
 //
 
 import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-    @IBOutlet weak var window: NSWindow!
-
+    @IBOutlet weak var statusMenu: NSMenu!
+    
+    var statusItem: NSStatusItem!
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
-        // Insert code here to initialize your application
+        setupStatusMenu()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
@@ -157,6 +157,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // If we got here, it is time to quit.
         return .TerminateNow
     }
+    
+    // MARK: - User defined functions
 
+    func setupStatusMenu() {
+        let statusBar = NSStatusBar.systemStatusBar()
+        statusItem = statusBar.statusItemWithLength(-1) // NSVariableStatusItemLength
+        statusItem.highlightMode = true
+        statusItem.title = "madoka"
+        statusItem.menu = statusMenu
+    }
 }
 
