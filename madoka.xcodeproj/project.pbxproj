@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFC21B5D089600B79313 /* AppDelegate.swift */; };
+		CEB5AFC61B5D089600B79313 /* madoka.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFC41B5D089600B79313 /* madoka.xcdatamodeld */; };
+		CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC71B5D089600B79313 /* Images.xcassets */; };
+		CEB5AFCB1B5D089600B79313 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC91B5D089600B79313 /* MainMenu.xib */; };
+		CEB5AFD71B5D089700B79313 /* madokaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFD61B5D089700B79313 /* madokaTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CEB5AFD11B5D089700B79313 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CEB5AFB51B5D089600B79313 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEB5AFBC1B5D089600B79313;
+			remoteInfo = madoka;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CEB5AFBD1B5D089600B79313 /* madoka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = madoka.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB5AFC11B5D089600B79313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEB5AFC21B5D089600B79313 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CEB5AFC51B5D089600B79313 /* madoka.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = madoka.xcdatamodel; sourceTree = "<group>"; };
+		CEB5AFC71B5D089600B79313 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		CEB5AFCA1B5D089600B79313 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		CEB5AFD01B5D089700B79313 /* madokaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = madokaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEB5AFD51B5D089700B79313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEB5AFD61B5D089700B79313 /* madokaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = madokaTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CEB5AFBA1B5D089600B79313 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB5AFCD1B5D089700B79313 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CEB5AFB41B5D089600B79313 = {
+			isa = PBXGroup;
+			children = (
+				CEB5AFBF1B5D089600B79313 /* madoka */,
+				CEB5AFD31B5D089700B79313 /* madokaTests */,
+				CEB5AFBE1B5D089600B79313 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CEB5AFBE1B5D089600B79313 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CEB5AFBD1B5D089600B79313 /* madoka.app */,
+				CEB5AFD01B5D089700B79313 /* madokaTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CEB5AFBF1B5D089600B79313 /* madoka */ = {
+			isa = PBXGroup;
+			children = (
+				CEB5AFC21B5D089600B79313 /* AppDelegate.swift */,
+				CEB5AFC71B5D089600B79313 /* Images.xcassets */,
+				CEB5AFC91B5D089600B79313 /* MainMenu.xib */,
+				CEB5AFC41B5D089600B79313 /* madoka.xcdatamodeld */,
+				CEB5AFC01B5D089600B79313 /* Supporting Files */,
+			);
+			path = madoka;
+			sourceTree = "<group>";
+		};
+		CEB5AFC01B5D089600B79313 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CEB5AFC11B5D089600B79313 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CEB5AFD31B5D089700B79313 /* madokaTests */ = {
+			isa = PBXGroup;
+			children = (
+				CEB5AFD61B5D089700B79313 /* madokaTests.swift */,
+				CEB5AFD41B5D089700B79313 /* Supporting Files */,
+			);
+			path = madokaTests;
+			sourceTree = "<group>";
+		};
+		CEB5AFD41B5D089700B79313 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CEB5AFD51B5D089700B79313 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CEB5AFBC1B5D089600B79313 /* madoka */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEB5AFDA1B5D089700B79313 /* Build configuration list for PBXNativeTarget "madoka" */;
+			buildPhases = (
+				CEB5AFB91B5D089600B79313 /* Sources */,
+				CEB5AFBA1B5D089600B79313 /* Frameworks */,
+				CEB5AFBB1B5D089600B79313 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = madoka;
+			productName = madoka;
+			productReference = CEB5AFBD1B5D089600B79313 /* madoka.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CEB5AFCF1B5D089700B79313 /* madokaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEB5AFDD1B5D089700B79313 /* Build configuration list for PBXNativeTarget "madokaTests" */;
+			buildPhases = (
+				CEB5AFCC1B5D089700B79313 /* Sources */,
+				CEB5AFCD1B5D089700B79313 /* Frameworks */,
+				CEB5AFCE1B5D089700B79313 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CEB5AFD21B5D089700B79313 /* PBXTargetDependency */,
+			);
+			name = madokaTests;
+			productName = madokaTests;
+			productReference = CEB5AFD01B5D089700B79313 /* madokaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CEB5AFB51B5D089600B79313 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = mtgto;
+				TargetAttributes = {
+					CEB5AFBC1B5D089600B79313 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					CEB5AFCF1B5D089700B79313 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = CEB5AFBC1B5D089600B79313;
+					};
+				};
+			};
+			buildConfigurationList = CEB5AFB81B5D089600B79313 /* Build configuration list for PBXProject "madoka" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CEB5AFB41B5D089600B79313;
+			productRefGroup = CEB5AFBE1B5D089600B79313 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CEB5AFBC1B5D089600B79313 /* madoka */,
+				CEB5AFCF1B5D089700B79313 /* madokaTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CEB5AFBB1B5D089600B79313 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */,
+				CEB5AFCB1B5D089600B79313 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB5AFCE1B5D089700B79313 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CEB5AFB91B5D089600B79313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEB5AFC61B5D089600B79313 /* madoka.xcdatamodeld in Sources */,
+				CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEB5AFCC1B5D089700B79313 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEB5AFD71B5D089700B79313 /* madokaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CEB5AFD21B5D089700B79313 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEB5AFBC1B5D089600B79313 /* madoka */;
+			targetProxy = CEB5AFD11B5D089700B79313 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CEB5AFC91B5D089600B79313 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEB5AFCA1B5D089600B79313 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CEB5AFD81B5D089700B79313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CEB5AFD91B5D089700B79313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CEB5AFDB1B5D089700B79313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = madoka/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CEB5AFDC1B5D089700B79313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = madoka/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		CEB5AFDE1B5D089700B79313 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = madokaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/madoka.app/Contents/MacOS/madoka";
+			};
+			name = Debug;
+		};
+		CEB5AFDF1B5D089700B79313 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = madokaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/madoka.app/Contents/MacOS/madoka";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CEB5AFB81B5D089600B79313 /* Build configuration list for PBXProject "madoka" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB5AFD81B5D089700B79313 /* Debug */,
+				CEB5AFD91B5D089700B79313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEB5AFDA1B5D089700B79313 /* Build configuration list for PBXNativeTarget "madoka" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB5AFDB1B5D089700B79313 /* Debug */,
+				CEB5AFDC1B5D089700B79313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		CEB5AFDD1B5D089700B79313 /* Build configuration list for PBXNativeTarget "madokaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEB5AFDE1B5D089700B79313 /* Debug */,
+				CEB5AFDF1B5D089700B79313 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CEB5AFC41B5D089600B79313 /* madoka.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEB5AFC51B5D089600B79313 /* madoka.xcdatamodel */,
+			);
+			currentVersion = CEB5AFC51B5D089600B79313 /* madoka.xcdatamodel */;
+			path = madoka.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = CEB5AFB51B5D089600B79313 /* Project object */;
+}
