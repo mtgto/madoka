@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="untitled.xcdatamodel" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <elements/>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E46" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="App" representedClassName="madoka.App" syncable="YES">
+        <attribute name="identifier" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
+        <attribute name="localized" attributeType="String" minValueString="1" syncable="YES"/>
+    </entity>
+    <entity name="Stat" representedClassName="madoka.Stat" syncable="YES">
+        <attribute name="duration" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="identifier" attributeType="String" minValueString="1" syncable="YES"/>
+        <attribute name="start" attributeType="Date" indexed="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Stat" positionX="241" positionY="-27" width="128" height="88"/>
+        <element name="App" positionX="-45" positionY="27" width="128" height="73"/>
+    </elements>
 </model>

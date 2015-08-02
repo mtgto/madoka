@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             if error != nil {
                 dict[NSUnderlyingErrorKey] = error
             }
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: Constants.ErrorDomain, code: 9999, userInfo: dict)
             NSApplication.sharedApplication().presentError(error!)
             return nil
         } else {
@@ -164,7 +164,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let statusBar = NSStatusBar.systemStatusBar()
         statusItem = statusBar.statusItemWithLength(-1) // NSVariableStatusItemLength
         statusItem.highlightMode = true
-        statusItem.title = "madoka"
+        let menuImage: NSImage! = NSImage(named: "Menu")
+        menuImage.setTemplate(true)
+        statusItem.image = menuImage
+        let menuImage2: NSImage! = NSImage(named: "Menu2")
+        menuImage2.setTemplate(true)
+        statusItem.alternateImage = menuImage2
         statusItem.menu = statusMenu
     }
 }
