@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFC21B5D089600B79313 /* AppDelegate.swift */; };
-		CEB5AFC61B5D089600B79313 /* madoka.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFC41B5D089600B79313 /* madoka.xcdatamodeld */; };
 		CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC71B5D089600B79313 /* Images.xcassets */; };
 		CEB5AFCB1B5D089600B79313 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC91B5D089600B79313 /* MainMenu.xib */; };
 		CEB5AFD71B5D089700B79313 /* madokaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFD61B5D089700B79313 /* madokaTests.swift */; };
@@ -17,6 +16,10 @@
 		CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */; };
 		CEB5B0131B6C6B0C00B79313 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5B0121B6C6B0C00B79313 /* App.swift */; };
 		CEB5B0151B6C6B0C00B79313 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5B0141B6C6B0C00B79313 /* Stat.swift */; };
+		CEB5B0181B76FDA900B79313 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0161B76FDA900B79313 /* Realm.framework */; };
+		CEB5B0191B76FDA900B79313 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0161B76FDA900B79313 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		CEB5B01A1B76FDA900B79313 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0171B76FDA900B79313 /* RealmSwift.framework */; };
+		CEB5B01B1B76FDA900B79313 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0171B76FDA900B79313 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,11 +32,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		CEB5B01C1B76FDA900B79313 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CEB5B01B1B76FDA900B79313 /* RealmSwift.framework in Embed Frameworks */,
+				CEB5B0191B76FDA900B79313 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		CEB5AFBD1B5D089600B79313 /* madoka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = madoka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB5AFC11B5D089600B79313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB5AFC21B5D089600B79313 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CEB5AFC51B5D089600B79313 /* madoka.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = madoka.xcdatamodel; sourceTree = "<group>"; };
 		CEB5AFC71B5D089600B79313 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CEB5AFCA1B5D089600B79313 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		CEB5AFD01B5D089700B79313 /* madokaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = madokaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +62,8 @@
 		CEB5B0111B6C548400B79313 /* madoka.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = madoka.entitlements; sourceTree = "<group>"; };
 		CEB5B0121B6C6B0C00B79313 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CEB5B0141B6C6B0C00B79313 /* Stat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		CEB5B0161B76FDA900B79313 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Carthage/Build/Mac/Realm.framework; sourceTree = "<group>"; };
+		CEB5B0171B76FDA900B79313 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../Carthage/Build/Mac/RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +71,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB5B01A1B76FDA900B79313 /* RealmSwift.framework in Frameworks */,
+				CEB5B0181B76FDA900B79313 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,13 +109,11 @@
 			children = (
 				CEB5B0141B6C6B0C00B79313 /* Stat.swift */,
 				CEB5B0121B6C6B0C00B79313 /* App.swift */,
-				CEB5B0111B6C548400B79313 /* madoka.entitlements */,
 				CEB5AFC21B5D089600B79313 /* AppDelegate.swift */,
 				CEB5AFE21B5D43C100B79313 /* Constants.swift */,
 				CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */,
 				CEB5AFC71B5D089600B79313 /* Images.xcassets */,
 				CEB5AFC91B5D089600B79313 /* MainMenu.xib */,
-				CEB5AFC41B5D089600B79313 /* madoka.xcdatamodeld */,
 				CEB5AFC01B5D089600B79313 /* Supporting Files */,
 			);
 			path = madoka;
@@ -105,6 +124,9 @@
 			children = (
 				CEB5AFC11B5D089600B79313 /* Info.plist */,
 				CEB5AFE01B5D40D300B79313 /* Localizable.strings */,
+				CEB5B0111B6C548400B79313 /* madoka.entitlements */,
+				CEB5B0161B76FDA900B79313 /* Realm.framework */,
+				CEB5B0171B76FDA900B79313 /* RealmSwift.framework */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -136,6 +158,7 @@
 				CEB5AFB91B5D089600B79313 /* Sources */,
 				CEB5AFBA1B5D089600B79313 /* Frameworks */,
 				CEB5AFBB1B5D089600B79313 /* Resources */,
+				CEB5B01C1B76FDA900B79313 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,6 +193,8 @@
 		CEB5AFB51B5D089600B79313 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = mtgto;
 				TargetAttributes = {
@@ -233,7 +258,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */,
-				CEB5AFC61B5D089600B79313 /* madoka.xcdatamodeld in Sources */,
 				CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */,
 				CEB5B0151B6C6B0C00B79313 /* Stat.swift in Sources */,
 				CEB5B0131B6C6B0C00B79313 /* App.swift in Sources */,
@@ -358,6 +382,10 @@
 				CODE_SIGN_ENTITLEMENTS = madoka/madoka.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = madoka/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -372,6 +400,10 @@
 				CODE_SIGN_ENTITLEMENTS = madoka/madoka.entitlements;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = madoka/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -434,6 +466,7 @@
 				CEB5AFDC1B5D089700B79313 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEB5AFDD1B5D089700B79313 /* Build configuration list for PBXNativeTarget "madokaTests" */ = {
 			isa = XCConfigurationList;
@@ -442,21 +475,9 @@
 				CEB5AFDF1B5D089700B79313 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		CEB5AFC41B5D089600B79313 /* madoka.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CEB5AFC51B5D089600B79313 /* madoka.xcdatamodel */,
-			);
-			currentVersion = CEB5AFC51B5D089600B79313 /* madoka.xcdatamodel */;
-			path = madoka.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CEB5AFB51B5D089600B79313 /* Project object */;
 }

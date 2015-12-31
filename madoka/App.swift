@@ -7,11 +7,22 @@
 //
 
 import Foundation
-import CoreData
+import RealmSwift
 
-class App: NSManagedObject {
+class App: Object, Hashable {
+    dynamic var identifier: String = ""
+    dynamic var localized: String?
+    let stats = List<Stat>()
+    
+    override static func primaryKey() -> String? {
+        return "identifier"
+    }
+    
+    override var hashValue: Int {
+        return identifier.hashValue
+    }
+}
 
-    @NSManaged var identifier: String
-    @NSManaged var localized: String
-
+func ==(lhs: App, rhs: App) -> Bool {
+    return lhs.identifier == rhs.identifier
 }

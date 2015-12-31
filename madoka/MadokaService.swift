@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import RealmSwift
 
 class MadokaService: NSObject {
     static let sharedInstance = MadokaService()
@@ -19,6 +20,8 @@ class MadokaService: NSObject {
     private var timer: NSTimer!
     
     private var usingApp: UsingApplication?
+    
+    private var apps: Set<App> = Set(try! Realm().objects(App))
     
     override init() {
         super.init()
@@ -43,13 +46,11 @@ class MadokaService: NSObject {
     }
     
     func updateUsingApp(lastUsingApp: UsingApplication, duration: NSTimeInterval) {
-        let appDelegate = NSApplication.sharedApplication().delegate as! AppDelegate
-        if let managedObjectContext = appDelegate.managedObjectContext {
-            let entityDescription = NSEntityDescription.entityForName("Stat", inManagedObjectContext: managedObjectContext)!
-            let statObject: Stat = NSManagedObject(entity: entityDescription, insertIntoManagedObjectContext: managedObjectContext) as! Stat
-            statObject.identifier = lastUsingApp.appId
-            statObject.start = lastUsingApp.since
-            statObject.duration = duration
+        let app = App()
+        let stat = Stat(app: app, start: lastUsingApp.since, duration: Int32(duration * 1000))
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(stat)
         }
     }
 }
