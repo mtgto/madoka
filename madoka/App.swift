@@ -10,19 +10,19 @@ import Foundation
 import RealmSwift
 
 class App: Object, Hashable {
-    dynamic var identifier: String = ""
+    dynamic var appIdentifier: String = ""
     dynamic var localized: String?
     let stats = List<Stat>()
     
     override static func primaryKey() -> String? {
-        return "identifier"
+        return "appIdentifier"
     }
     
     override var hashValue: Int {
-        return identifier.hashValue
+        return appIdentifier.hashValue
     }
 }
 
 func ==(lhs: App, rhs: App) -> Bool {
-    return lhs.identifier == rhs.identifier
+    return lhs.appIdentifier == rhs.appIdentifier
 }

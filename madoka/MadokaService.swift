@@ -14,6 +14,7 @@ class MadokaService: NSObject {
     
     struct UsingApplication {
         let appId: String
+        let localized: String?
         let since: NSDate
     }
     
@@ -21,7 +22,7 @@ class MadokaService: NSObject {
     
     private var usingApp: UsingApplication?
     
-    private var apps: Set<App> = Set(try! Realm().objects(App))
+    private var apps: Dictionary<String, App> = try! Array<App>(Realm().objects(App)).reduce([String: App]()) {(var dict, element) in dict[element.appIdentifier] = element; return dict}
     
     override init() {
         super.init()
@@ -39,15 +40,23 @@ class MadokaService: NSObject {
                     }
                 }
                 if usingApp?.appId != bundleIdentifier {
-                    usingApp = UsingApplication(appId: bundleIdentifier, since: current)
+                    usingApp = UsingApplication(appId: bundleIdentifier, localized: app.localizedName, since: current)
                 }
             }
         }
     }
     
     func updateUsingApp(lastUsingApp: UsingApplication, duration: NSTimeInterval) {
-        let app = App()
-        let stat = Stat(app: app, start: lastUsingApp.since, duration: Int32(duration * 1000))
+        var app: App
+        if self.apps[lastUsingApp.appId] != nil {
+            app = self.apps[lastUsingApp.appId]!
+        } else {
+            app = App()
+            app.appIdentifier = lastUsingApp.appId
+            app.localized = lastUsingApp.localized
+            self.apps[lastUsingApp.appId] = app
+        }
+        let stat: Stat = Stat(value: ["app": app, "start": lastUsingApp.since, "duration": Int(duration * 1000)])
         let realm = try! Realm()
         try! realm.write {
             realm.add(stat)

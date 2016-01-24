@@ -13,6 +13,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var statusMenu: NSMenu!
     
     var statusItem: NSStatusItem!
+    
+    let madokaService: MadokaService = MadokaService.sharedInstance
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         setupStatusMenu()
