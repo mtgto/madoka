@@ -17,11 +17,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let madokaService: MadokaService = MadokaService.sharedInstance
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "didActivateApplication:", name: NSWorkspaceDidActivateApplicationNotification, object: nil)
         setupStatusMenu()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+        NSNotificationCenter.defaultCenter().removeObserver(self.madokaService)
     }
     
     // MARK: - User defined functions
@@ -39,4 +41,3 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem.menu = statusMenu
     }
 }
-

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */; };
 		CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFC21B5D089600B79313 /* AppDelegate.swift */; };
 		CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC71B5D089600B79313 /* Images.xcassets */; };
 		CEB5AFCB1B5D089600B79313 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC91B5D089600B79313 /* MainMenu.xib */; };
@@ -48,6 +49,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = madoka/MyPlayground.playground; sourceTree = "<group>"; };
 		CEB5AFBD1B5D089600B79313 /* madoka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = madoka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB5AFC11B5D089600B79313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB5AFC21B5D089600B79313 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB5AFBF1B5D089600B79313 /* madoka */,
+				CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */,
 				CEB5AFD31B5D089700B79313 /* madokaTests */,
 				CEB5AFBE1B5D089600B79313 /* Products */,
 			);
@@ -112,6 +116,7 @@
 				CEB5AFC21B5D089600B79313 /* AppDelegate.swift */,
 				CEB5AFE21B5D43C100B79313 /* Constants.swift */,
 				CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */,
+				CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */,
 				CEB5AFC71B5D089600B79313 /* Images.xcassets */,
 				CEB5AFC91B5D089600B79313 /* MainMenu.xib */,
 				CEB5AFC01B5D089600B79313 /* Supporting Files */,
@@ -202,6 +207,9 @@
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = W3A6B7FDC7;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.Mac = {
+								enabled = 0;
+							};
 							com.apple.Sandbox = {
 								enabled = 1;
 							};
@@ -257,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */,
 				CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */,
 				CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */,
 				CEB5B0151B6C6B0C00B79313 /* Stat.swift in Sources */,
