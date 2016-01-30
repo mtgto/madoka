@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */; };
+		CEB27FB31C5CB0DC0051F5E1 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */; };
+		CEB27FB51C5CB2200051F5E1 /* LocalizedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */; };
 		CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFC21B5D089600B79313 /* AppDelegate.swift */; };
 		CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC71B5D089600B79313 /* Images.xcassets */; };
 		CEB5AFCB1B5D089600B79313 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFC91B5D089600B79313 /* MainMenu.xib */; };
@@ -15,8 +17,6 @@
 		CEB5AFE11B5D40D300B79313 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFE01B5D40D300B79313 /* Localizable.strings */; };
 		CEB5AFE31B5D43C100B79313 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFE21B5D43C100B79313 /* Constants.swift */; };
 		CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */; };
-		CEB5B0131B6C6B0C00B79313 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5B0121B6C6B0C00B79313 /* App.swift */; };
-		CEB5B0151B6C6B0C00B79313 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5B0141B6C6B0C00B79313 /* Stat.swift */; };
 		CEB5B0181B76FDA900B79313 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0161B76FDA900B79313 /* Realm.framework */; };
 		CEB5B0191B76FDA900B79313 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0161B76FDA900B79313 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEB5B01A1B76FDA900B79313 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0171B76FDA900B79313 /* RealmSwift.framework */; };
@@ -51,6 +51,8 @@
 /* Begin PBXFileReference section */
 		CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = madoka/MyPlayground.playground; sourceTree = "<group>"; };
+		CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
+		CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedName.swift; sourceTree = "<group>"; };
 		CEB5AFBD1B5D089600B79313 /* madoka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = madoka.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB5AFC11B5D089600B79313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB5AFC21B5D089600B79313 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,8 +65,6 @@
 		CEB5AFE21B5D43C100B79313 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadokaService.swift; sourceTree = "<group>"; };
 		CEB5B0111B6C548400B79313 /* madoka.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = madoka.entitlements; sourceTree = "<group>"; };
-		CEB5B0121B6C6B0C00B79313 /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		CEB5B0141B6C6B0C00B79313 /* Stat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		CEB5B0161B76FDA900B79313 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Carthage/Build/Mac/Realm.framework; sourceTree = "<group>"; };
 		CEB5B0171B76FDA900B79313 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../Carthage/Build/Mac/RealmSwift.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -111,10 +111,10 @@
 		CEB5AFBF1B5D089600B79313 /* madoka */ = {
 			isa = PBXGroup;
 			children = (
-				CEB5B0141B6C6B0C00B79313 /* Stat.swift */,
-				CEB5B0121B6C6B0C00B79313 /* App.swift */,
 				CEB5AFC21B5D089600B79313 /* AppDelegate.swift */,
 				CEB5AFE21B5D43C100B79313 /* Constants.swift */,
+				CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */,
+				CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */,
 				CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */,
 				CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */,
 				CEB5AFC71B5D089600B79313 /* Images.xcassets */,
@@ -268,9 +268,9 @@
 				CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */,
 				CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */,
 				CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */,
-				CEB5B0151B6C6B0C00B79313 /* Stat.swift in Sources */,
-				CEB5B0131B6C6B0C00B79313 /* App.swift in Sources */,
 				CEB5AFE31B5D43C100B79313 /* Constants.swift in Sources */,
+				CEB27FB51C5CB2200051F5E1 /* LocalizedName.swift in Sources */,
+				CEB27FB31C5CB0DC0051F5E1 /* Statistic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
