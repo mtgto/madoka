@@ -27,7 +27,6 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
     
     func menuWillOpen(menu: NSMenu) {
-        debugPrint("menuWillOpen")
         let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
         let current = NSDate()
         let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(current.dateByAddingTimeInterval(-60 * 60), to: current)
@@ -45,6 +44,10 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             menuItem.enabled = true
             menuItem.image = self.images[i % self.images.count]
             menu.addItem(menuItem)
+            let subtitle = String(format: "%02d:%02d", Int(statistic.duration) / 60, Int(statistic.duration) % 60)
+            let subMenu = NSMenu(title: "")
+            subMenu.addItem(NSMenuItem(title: subtitle, action: nil, keyEquivalent: ""))
+            menuItem.submenu = subMenu
         }
         let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
         menuItem.view = viewController.view

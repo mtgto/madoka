@@ -10,6 +10,8 @@ import Cocoa
 import RealmSwift
 
 class MadokaService: NSObject {
+    private typealias StatisticTuple = (applicationIdentifier: String, since: NSTimeInterval, duration: NSTimeInterval)
+
     static let sharedInstance = MadokaService()
     
     struct UsingApplication {
@@ -28,7 +30,7 @@ class MadokaService: NSObject {
      * It contains only today's statistics.
      * If you need to use older statistics, use realm.
      */
-    private var statistics: Array<(applicationIdentifier: String, since: NSTimeInterval, duration: NSTimeInterval)> = []
+    private var statistics: Array<StatisticTuple> = []
     
     override init() {
         super.init()
@@ -70,7 +72,7 @@ class MadokaService: NSObject {
     func usedAppsSince(since: NSDate, to: NSDate) -> [(name: String, duration: NSTimeInterval)] {
         let sinceReference = since.timeIntervalSinceReferenceDate
         let toReference = to.timeIntervalSinceReferenceDate
-        return self.statistics.reduce([String: NSTimeInterval]()) { (var dict: [String: NSTimeInterval], stat) in
+        return self.currentStatistics().reduce([String: NSTimeInterval]()) { (var dict: [String: NSTimeInterval], stat) in
             let duration = min(stat.since + stat.duration, toReference) - max(sinceReference, stat.since)
             if duration > 0 {
                 if let lastDuration: NSTimeInterval = dict[stat.applicationIdentifier] {
@@ -84,6 +86,17 @@ class MadokaService: NSObject {
             return $0.1 > $1.1
         }.map {
             return (name: self.localizedNames[$0.0]!, duration: $0.1)
+        }
+    }
+
+    /**
+     * Statistics with current application.
+     */
+    private func currentStatistics() -> [StatisticTuple] {
+        if let usingApplication = self.usingApp {
+            return self.statistics + [(applicationIdentifier: usingApplication.applicationIdentifier, since: usingApplication.since.timeIntervalSinceReferenceDate, duration: -usingApplication.since.timeIntervalSinceNow)]
+        } else {
+            return self.statistics
         }
     }
     
