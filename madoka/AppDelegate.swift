@@ -17,6 +17,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let madokaService: MadokaService = MadokaService.sharedInstance
 
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        NSUserDefaults.standardUserDefaults().registerDefaults(
+            [Constants.KeyPreferenceIntervalIndex: 0]
+        )
         NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "didActivateApplication:", name: NSWorkspaceDidActivateApplicationNotification, object: nil)
         setupStatusMenu()
     }

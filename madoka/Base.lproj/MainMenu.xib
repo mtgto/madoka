@@ -670,6 +670,37 @@
         <menu id="pkV-9R-iZA" userLabel="Status Menu">
             <items>
                 <menuItem isSeparatorItem="YES" id="hlC-tY-cCE"/>
+                <menuItem title="Interval" id="IP4-4b-NKl">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Interval" id="cbO-UJ-Pnk">
+                        <items>
+                            <menuItem title="1 hour" id="2ai-dC-gGX">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuSelected:" target="dds-PC-fg5" id="6To-Xo-4Mm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="4 hours" id="Ks9-dt-zIN">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuSelected:" target="dds-PC-fg5" id="mMt-fl-EHK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="8 hours" id="yZi-wk-4QA">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuSelected:" target="dds-PC-fg5" id="FkW-UE-fyl"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Today" id="Kel-Ic-jGB">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="menuSelected:" target="dds-PC-fg5" id="CQX-d3-aDr"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
                 <menuItem title="About madoka" id="hsr-KV-XOI">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -687,6 +718,13 @@
                 <outlet property="delegate" destination="dds-PC-fg5" id="rNM-c2-EWu"/>
             </connections>
         </menu>
-        <customObject id="dds-PC-fg5" customClass="StatusMenuController" customModule="madoka" customModuleProvider="target"/>
+        <customObject id="dds-PC-fg5" customClass="StatusMenuController" customModule="madoka" customModuleProvider="target">
+            <connections>
+                <outlet property="eightHoursMenuItem" destination="yZi-wk-4QA" id="7Vc-SG-N73"/>
+                <outlet property="fourHoursMenuItem" destination="Ks9-dt-zIN" id="MRZ-fh-1vb"/>
+                <outlet property="oneHourMenuItem" destination="2ai-dC-gGX" id="3Xn-4r-tPV"/>
+                <outlet property="todayMenuItem" destination="Kel-Ic-jGB" id="mUA-kq-N84"/>
+            </connections>
+        </customObject>
     </objects>
 </document>
