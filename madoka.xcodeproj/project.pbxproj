@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE6D15A91C5E0AC900244F2A /* StatisticsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE6D15A81C5E0AC900244F2A /* StatisticsViewController.xib */; };
+		CE6D15AB1C5E0B3A00244F2A /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D15AA1C5E0B3A00244F2A /* StatisticsView.swift */; };
+		CE6D15AD1C5E0D8A00244F2A /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D15AC1C5E0D8A00244F2A /* StatisticsViewController.swift */; };
 		CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */; };
 		CEB27FB31C5CB0DC0051F5E1 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */; };
 		CEB27FB51C5CB2200051F5E1 /* LocalizedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */; };
@@ -49,6 +52,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		CE6D15A81C5E0AC900244F2A /* StatisticsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticsViewController.xib; sourceTree = "<group>"; };
+		CE6D15AA1C5E0B3A00244F2A /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		CE6D15AC1C5E0D8A00244F2A /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = madoka/MyPlayground.playground; sourceTree = "<group>"; };
 		CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
@@ -117,8 +123,11 @@
 				CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */,
 				CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */,
 				CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */,
+				CE6D15AC1C5E0D8A00244F2A /* StatisticsViewController.swift */,
+				CE6D15AA1C5E0B3A00244F2A /* StatisticsView.swift */,
 				CEB5AFC71B5D089600B79313 /* Images.xcassets */,
 				CEB5AFC91B5D089600B79313 /* MainMenu.xib */,
+				CE6D15A81C5E0AC900244F2A /* StatisticsViewController.xib */,
 				CEB5AFC01B5D089600B79313 /* Supporting Files */,
 			);
 			path = madoka;
@@ -246,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */,
+				CE6D15A91C5E0AC900244F2A /* StatisticsViewController.xib in Resources */,
 				CEB5AFE11B5D40D300B79313 /* Localizable.strings in Resources */,
 				CEB5AFCB1B5D089600B79313 /* MainMenu.xib in Resources */,
 			);
@@ -268,6 +278,8 @@
 				CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */,
 				CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */,
 				CEB5AFC31B5D089600B79313 /* AppDelegate.swift in Sources */,
+				CE6D15AD1C5E0D8A00244F2A /* StatisticsViewController.swift in Sources */,
+				CE6D15AB1C5E0B3A00244F2A /* StatisticsView.swift in Sources */,
 				CEB5AFE31B5D43C100B79313 /* Constants.swift in Sources */,
 				CEB27FB51C5CB2200051F5E1 /* LocalizedName.swift in Sources */,
 				CEB27FB31C5CB0DC0051F5E1 /* Statistic.swift in Sources */,
