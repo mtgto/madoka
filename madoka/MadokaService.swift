@@ -13,7 +13,8 @@ class MadokaService: NSObject {
     static let sharedInstance = MadokaService()
     
     struct UsingApplication {
-        let appId: String
+        let applicationIdentifier: String
+        let localizedName: String
         let since: NSDate
     }
     
@@ -40,6 +41,7 @@ class MadokaService: NSObject {
             .map {
                 (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSinceDate($0.start))
             }
+        debugPrint(self.localizedNames)
         //timer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(10.0), target: self, selector: Selector("onUpdate:"), userInfo: nil, repeats: true)
     }
     
@@ -51,13 +53,14 @@ class MadokaService: NSObject {
             if let application: NSRunningApplication = userInfo[NSWorkspaceApplicationKey] as? NSRunningApplication {
                 if let applicationIdentifier = application.bundleIdentifier {
                     if let localizedName: String = application.localizedName {
-                        debugPrint("localizedName: " + localizedName)
+                        debugPrint("localizedName: ", localizedName, applicationIdentifier)
                         let current = NSDate()
                         if let lastApplication = self.usingApp {
                             let duration: NSTimeInterval = current.timeIntervalSinceDate(lastApplication.since)
-                            updateUsingApp(lastApplication, localizedName: localizedName, duration: duration)
+                            self.localizedNames[applicationIdentifier] = localizedName
+                            self.updateUsingApp(lastApplication, duration: duration)
                         }
-                        self.usingApp = UsingApplication(appId: applicationIdentifier, since: current)
+                        self.usingApp = UsingApplication(applicationIdentifier: applicationIdentifier, localizedName: localizedName, since: current)
                     }
                 }
             }
@@ -78,22 +81,20 @@ class MadokaService: NSObject {
             }
             return dict
         }.sort {
-            return $0.1 < $1.1
+            return $0.1 > $1.1
         }.map {
             return (name: self.localizedNames[$0.0]!, duration: $0.1)
         }
     }
     
-    private func updateUsingApp(lastUsingApp: UsingApplication, localizedName: String, duration: NSTimeInterval) {
+    private func updateUsingApp(lastUsingApp: UsingApplication, duration: NSTimeInterval) {
         let realm = try! Realm()
+        let statistic: Statistic = Statistic(start: lastUsingApp.since, end: lastUsingApp.since.dateByAddingTimeInterval(duration), applicationIdentifier: lastUsingApp.applicationIdentifier)
+        let localizedName: LocalizedName = LocalizedName(applicationIdentifier: lastUsingApp.applicationIdentifier, localizedName: lastUsingApp.localizedName)
         try! realm.write {
-            let statistic: Statistic = Statistic(start: lastUsingApp.since, end: lastUsingApp.since.dateByAddingTimeInterval(duration), applicationIdentifier: lastUsingApp.appId)
             realm.add(statistic)
-            if (self.localizedNames[lastUsingApp.appId]) == nil {
-                realm.add(LocalizedName(applicationIdentifier: lastUsingApp.appId, localizedName: localizedName))
-                self.localizedNames[lastUsingApp.appId] = localizedName
-            }
+            realm.add(localizedName, update: true)
         }
-        self.statistics.append(applicationIdentifier: lastUsingApp.appId, since: lastUsingApp.since.timeIntervalSinceReferenceDate, duration: duration)
+        self.statistics.append(applicationIdentifier: lastUsingApp.applicationIdentifier, since: lastUsingApp.since.timeIntervalSinceReferenceDate, duration: duration)
     }
 }
