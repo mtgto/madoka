@@ -21,11 +21,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             [Constants.KeyPreferenceIntervalIndex: 0]
         )
         NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "didActivateApplication:", name: NSWorkspaceDidActivateApplicationNotification, object: nil)
+        NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "willSleep:", name: NSWorkspaceWillSleepNotification, object: nil)
+        NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "didWake:", name: NSWorkspaceDidWakeNotification, object: nil)
         setupStatusMenu()
     }
 
     func applicationWillTerminate(aNotification: NSNotification) {
-        // Insert code here to tear down your application
+        madokaService.willTerminate()
         NSNotificationCenter.defaultCenter().removeObserver(self.madokaService)
     }
     

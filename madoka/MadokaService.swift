@@ -23,6 +23,8 @@ class MadokaService: NSObject {
     private var usingApp: UsingApplication? = nil
     
     private var localizedNames: [String: String] = [String: String]()
+
+    private let ignoreApplicationIdentifiers: Set<String> = ["com.apple.loginwindow"]
     
     /**
      * Tuple of (Application bundle's identifier, since (TimeIntervalSinceReferenceDate), duration)
@@ -44,7 +46,6 @@ class MadokaService: NSObject {
                 (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSinceDate($0.start))
             }
         debugPrint(self.localizedNames)
-        //timer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(10.0), target: self, selector: Selector("onUpdate:"), userInfo: nil, repeats: true)
     }
     
     /**
@@ -53,28 +54,62 @@ class MadokaService: NSObject {
     func didActivateApplication(notification: NSNotification?) {
         if let userInfo: [String: AnyObject] = notification?.userInfo as? [String: AnyObject] {
             if let application: NSRunningApplication = userInfo[NSWorkspaceApplicationKey] as? NSRunningApplication {
-                if let applicationIdentifier = application.bundleIdentifier {
-                    if let localizedName: String = application.localizedName {
-                        debugPrint("localizedName: ", localizedName, applicationIdentifier)
-                        let current = NSDate()
-                        if let lastApplication = self.usingApp {
-                            let duration: NSTimeInterval = current.timeIntervalSinceDate(lastApplication.since)
-                            self.localizedNames[applicationIdentifier] = localizedName
-                            self.updateUsingApp(lastApplication, duration: duration)
-                        }
-                        self.usingApp = UsingApplication(applicationIdentifier: applicationIdentifier, localizedName: localizedName, since: current)
-                    }
-                }
+                self.applicationChanged(application)
             }
         }
     }
-    
+
+    /**
+     * Be invoked from NSNotifacionCenter when computer is going to sleep.
+     */
+    func willSleep(notification: NSNotification?) {
+        debugPrint("willSleep")
+        applicationChanged(nil)
+    }
+
+    /**
+     * Be invoked from NSNotifacionCenter when computer wake.
+     */
+    func didWake(notification: NSNotification?) {
+        debugPrint("didWake")
+        if let application = NSWorkspace.sharedWorkspace().frontmostApplication {
+            applicationChanged(application)
+        }
+    }
+
+    func willTerminate() {
+        debugPrint("willTerminate")
+        applicationChanged(nil)
+    }
+
+    /**
+     * Notify when current application changed.
+     */
+    func applicationChanged(application: NSRunningApplication?) {
+        let current = NSDate()
+        if let lastApplication = self.usingApp {
+            let duration: NSTimeInterval = current.timeIntervalSinceDate(lastApplication.since)
+            self.updateUsingApp(lastApplication, duration: duration)
+        }
+        if let application = application {
+            if let applicationIdentifier = application.bundleIdentifier {
+                if let localizedName: String = application.localizedName {
+                    debugPrint("localizedName: ", localizedName, applicationIdentifier)
+                    self.localizedNames[applicationIdentifier] = localizedName
+                    self.usingApp = UsingApplication(applicationIdentifier: applicationIdentifier, localizedName: localizedName, since: current)
+                }
+            }
+        } else {
+            self.usingApp = nil
+        }
+    }
+
     func usedAppsSince(since: NSDate, to: NSDate) -> [(name: String, duration: NSTimeInterval)] {
         let sinceReference = since.timeIntervalSinceReferenceDate
         let toReference = to.timeIntervalSinceReferenceDate
         return self.currentStatistics().reduce([String: NSTimeInterval]()) { (var dict: [String: NSTimeInterval], stat) in
             let duration = min(stat.since + stat.duration, toReference) - max(sinceReference, stat.since)
-            if duration > 0 {
+            if duration > 0 && !self.ignoreApplicationIdentifiers.contains(stat.applicationIdentifier) {
                 if let lastDuration: NSTimeInterval = dict[stat.applicationIdentifier] {
                     dict[stat.applicationIdentifier] = duration + lastDuration
                 } else {
