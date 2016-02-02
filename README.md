@@ -1,12 +1,26 @@
-madoka
+MADOKA
 ====
-MADOKA is Monitoring Application Displaying Observation on the Kind of your Activities.
+MADOKA is Mac OS X Application to display your application usage.
 
-# Screenshots
-TODO
+MADOKA means `Monitoring Application Displaying Observation on the Kind of your Activities`.
 
-# Requirements
+## Screenshots
+![screenshot](/screenshot.png)
+
+## Requirements
 - Mac OS X 10.9 or later
 
-# License
-MIT
+## Builds
+```sh
+$ carthage update
+$ open madoka.xcodeproj
+```
+
+## Acknowledgements
+- [mashijp](https://github.com/mashijp) creates original concept.
+
+## License
+[MIT](/LICENSE)
+
+## Author
+[mtgto](https://github.com/mtgto)

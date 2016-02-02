@@ -44,29 +44,19 @@ class StatisticsView: NSView {
             CGContextAddArc(context, cx, cy, radius, radian, toRadian, 1)
             radian = toRadian
             CGContextClosePath(context)
-            //let path = CGContextCopyPath(context)!
             CGContextFillPath(context)
             
             if value.ratio >= 0.1 {
                 let strx = cx + cos(midRadian) * radius * 0.5
                 let stry = cy + sin(midRadian) * radius * 0.5
-                let shadow = NSShadow()
-                shadow.shadowOffset = CGSizeMake(1.0, 1.0)
-                shadow.shadowColor = NSColor.blueColor()
-                shadow.shadowBlurRadius = 5.0
                 let string = NSAttributedString(string: String(format: "%.1f%%", value.ratio * 100),
                     attributes: [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(14)])
-                let framesetter = CTFramesetterCreateWithAttributedString(string)
-                let path = CGPathCreateWithRect(CGRectMake(strx - 20, stry - 20, 40, 40), nil)
-                let frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, 0), path, nil)
-                //let line = CTLineCreateWithAttributedString(string)
-                CGContextSetTextPosition(context, strx - 20, stry - 20)
+                let line = CTLineCreateWithAttributedString(string)
+                CGContextSetTextPosition(context, strx - 20, stry)
+                CGContextSaveGState(context)
                 CGContextSetShadow(context, CGSizeMake(1, 1), 5)
-                //CGContextSetTextDrawingMode(context, CGTextDrawingMode.FillStrokeClip)
-                CTFrameDraw(frame, context)
-                CGContextSetShadowWithColor(context, CGSizeMake(1, 1), 5, nil)
-                //CTLineDraw(line, context)
-                //CGContextStrokePath(context)
+                CTLineDraw(line, context)
+                CGContextRestoreGState(context)
             }
         }
     }
