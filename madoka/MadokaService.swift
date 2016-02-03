@@ -24,7 +24,7 @@ class MadokaService: NSObject {
     
     private var localizedNames: [String: String] = [String: String]()
 
-    private let ignoreApplicationIdentifiers: Set<String> = ["com.apple.loginwindow"]
+    private let ignoreApplicationIdentifiers: Set<String> = ["com.apple.loginwindow", "com.apple.ScreenSaver.Engine", "com.apple.SecurityAgent"]
     
     /**
      * Tuple of (Application bundle's identifier, since (TimeIntervalSinceReferenceDate), duration)
