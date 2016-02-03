@@ -9,7 +9,15 @@
 import Cocoa
 
 class StatisticsView: NSView {
+    enum LegendType {
+        case Ratio
+        case ApplicationName
+
+        static let values: [LegendType] = [.Ratio, .ApplicationName]
+    }
+
     private var values: [(legend: String, color: NSColor, ratio: Float)] = []
+    private var legendType: LegendType = .Ratio
     
     func updateValues(values: [(legend: String, color: NSColor, ratio: Float)]) {
         self.values = values
@@ -27,6 +35,10 @@ class StatisticsView: NSView {
             return nil
         }
     }
+
+    override func viewDidMoveToWindow() {
+        self.window?.becomeKeyWindow()
+    }
     
     override func drawRect(dirtyRect: NSRect) {
         let cy = CGRectGetHeight(self.bounds) / 2
@@ -35,7 +47,10 @@ class StatisticsView: NSView {
         let pi = M_PI
         var radian: CGFloat = CGFloat(pi / 2)
         let context = self.currentContext!
-        
+        let lineWidth = Double(CGRectGetWidth(self.bounds) / 4)
+        let lineAttributes = [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(14)]
+        let truncationToken = CTLineCreateWithAttributedString(NSAttributedString(string: "…", attributes: lineAttributes))
+
         for value in values {
             CGContextSetFillColorWithColor(context, value.color.CGColor)
             CGContextMoveToPoint(context, cx, cy)
@@ -49,15 +64,29 @@ class StatisticsView: NSView {
             if value.ratio >= 0.1 {
                 let strx = cx + cos(midRadian) * radius * 0.5
                 let stry = cy + sin(midRadian) * radius * 0.5
-                let string = NSAttributedString(string: String(format: "%.1f%%", value.ratio * 100),
-                    attributes: [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(14)])
-                let line = CTLineCreateWithAttributedString(string)
+
+                let string: String
+                switch legendType {
+                case .Ratio:
+                    string = String(format: "%.1f%%", value.ratio * 100)
+                case .ApplicationName:
+                    string = value.legend
+                }
+
+                let attributedString = NSAttributedString(string: string, attributes: lineAttributes)
+                let line = CTLineCreateWithAttributedString(attributedString)
+                let truncatedLine = CTLineCreateTruncatedLine(line, lineWidth, .End, truncationToken)!
                 CGContextSetTextPosition(context, strx - 20, stry)
                 CGContextSaveGState(context)
                 CGContextSetShadow(context, CGSizeMake(1, 1), 5)
-                CTLineDraw(line, context)
+                CTLineDraw(truncatedLine, context)
                 CGContextRestoreGState(context)
             }
         }
+    }
+
+    override func mouseDown(theEvent: NSEvent) {
+        let currentIndex = LegendType.values.indexOf(legendType)!
+        legendType = LegendType.values[(currentIndex + 1) % LegendType.values.count]
     }
 }
