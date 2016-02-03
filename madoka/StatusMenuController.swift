@@ -19,10 +19,31 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         NSColor.redColor(),
         NSColor.purpleColor()
     ]
-    
+
+    enum IntervalIndex: Int {
+        case OneHour = 0
+        case FourHours = 1
+        case EightHours = 2
+        case Today = 3
+
+        func startDateFrom(current: NSDate) -> NSDate {
+            switch self {
+            case .OneHour:
+                return current.dateByAddingTimeInterval(-60 * 60)
+            case .FourHours:
+                return current.dateByAddingTimeInterval(-4 * 60 * 60)
+            case .EightHours:
+                return current.dateByAddingTimeInterval(-8 * 60 * 60)
+            case .Today:
+                let calendar = NSCalendar.currentCalendar()
+                return calendar.dateFromComponents(calendar.components([NSCalendarUnit.Year, NSCalendarUnit.Month, NSCalendarUnit.Day], fromDate: current))!
+            }
+        }
+    }
+
     private let images: [NSImage]
 
-    private var intervalIndex: Int = 0
+    private var intervalIndex: IntervalIndex = .OneHour
     
     @IBOutlet weak var oneHourMenuItem: NSMenuItem!
 
@@ -34,7 +55,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
     override init() {
         self.images = colors.map { StatusMenuController.imageFromColor($0) }
-        self.intervalIndex = NSUserDefaults.standardUserDefaults().integerForKey(Constants.KeyPreferenceIntervalIndex)
+        self.intervalIndex = IntervalIndex(rawValue: NSUserDefaults.standardUserDefaults().integerForKey(Constants.KeyPreferenceIntervalIndex))!
     }
     
     @IBAction func menuSelected(sender: AnyObject) {
@@ -45,24 +66,24 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
         if sender as! NSObject == oneHourMenuItem {
             oneHourMenuItem.state = NSOnState
-            intervalIndex = 0
+            intervalIndex = .OneHour
         } else if sender as! NSObject == fourHoursMenuItem {
             fourHoursMenuItem.state = NSOnState
-            intervalIndex = 1
+            intervalIndex = .FourHours
         } else if sender as! NSObject == eightHoursMenuItem {
             eightHoursMenuItem.state = NSOnState
-            intervalIndex = 2
+            intervalIndex = .EightHours
         } else if sender as! NSObject == todayMenuItem {
             todayMenuItem.state = NSOnState
-            intervalIndex = 3
+            intervalIndex = .Today
         }
-        NSUserDefaults.standardUserDefaults().setInteger(intervalIndex, forKey: Constants.KeyPreferenceIntervalIndex)
+        NSUserDefaults.standardUserDefaults().setInteger(intervalIndex.rawValue, forKey: Constants.KeyPreferenceIntervalIndex)
     }
 
     func menuWillOpen(menu: NSMenu) {
         let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
         let current = NSDate()
-        let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(Constants.startDateFromIntervalIndex(intervalIndex, current)!, to: current)
+        let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
         viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
         
@@ -90,16 +111,14 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
     private func setIntervalMenuState() {
         switch self.intervalIndex {
-        case 0:
+        case .OneHour:
             oneHourMenuItem.state = NSOnState
-        case 1:
+        case .FourHours:
             fourHoursMenuItem.state = NSOnState
-        case 2:
+        case .EightHours:
             eightHoursMenuItem.state = NSOnState
-        case 3:
+        case .Today:
             todayMenuItem.state = NSOnState
-        default:
-            break
         }
     }
 
