@@ -20,9 +20,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSUserDefaults.standardUserDefaults().registerDefaults(
             [Constants.KeyPreferenceIntervalIndex: 0]
         )
-        NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "didActivateApplication:", name: NSWorkspaceDidActivateApplicationNotification, object: nil)
-        NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "willSleep:", name: NSWorkspaceWillSleepNotification, object: nil)
-        NSWorkspace.sharedWorkspace().notificationCenter.addObserver(self.madokaService, selector: "didWake:", name: NSWorkspaceDidWakeNotification, object: nil)
+        let notificationCenter = NSWorkspace.sharedWorkspace().notificationCenter
+        notificationCenter.addObserver(self.madokaService, selector: "didActivateApplication:", name: NSWorkspaceDidActivateApplicationNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: "willSleep:", name: NSWorkspaceWillSleepNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: "didWake:", name: NSWorkspaceDidWakeNotification, object: nil)
         setupStatusMenu()
     }
 
