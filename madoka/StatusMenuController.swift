@@ -44,7 +44,12 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     private let images: [NSImage]
 
     private var intervalIndex: IntervalIndex = .OneHour
-    
+
+    /**
+     * Minimum duration to show in menu (inclusive).
+     */
+    private let minimumDuration: NSTimeInterval = 60
+
     @IBOutlet weak var oneHourMenuItem: NSMenuItem!
 
     @IBOutlet weak var fourHoursMenuItem: NSMenuItem!
@@ -84,6 +89,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
         let current = NSDate()
         let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
+            .filter { $0.duration >= minimumDuration }
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
         viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
         
