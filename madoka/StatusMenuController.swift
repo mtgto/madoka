@@ -66,18 +66,17 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
         viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
         
-        let menuItemArray = menu.itemArray
-        let configMenuItem = menuItemArray[menuItemArray.count-3]
-        let aboutMenuItem = menuItemArray[menuItemArray.count-2]
-        let quitMenuItem = menuItemArray.last!
-        menu.removeAllItems()
-        
+        let menuItemCount = menu.itemArray.count
+        for _ in 0..<menuItemCount-4 {
+            menu.removeItemAtIndex(0)
+        }
+
         for (i, statistic) in applicationStatistics.enumerate() {
             let title = String(format: "%@ (%.1f %%)", statistic.name, statistic.duration * 100 / totalDuration)
             let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
             menuItem.enabled = true
             menuItem.image = self.images[i % self.images.count]
-            menu.addItem(menuItem)
+            menu.insertItem(menuItem, atIndex: i)
             let subtitle = String(format: "%02d:%02d", Int(statistic.duration) / 60, Int(statistic.duration) % 60)
             let subMenu = NSMenu(title: "")
             subMenu.addItem(NSMenuItem(title: subtitle, action: nil, keyEquivalent: ""))
@@ -85,12 +84,8 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
         let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
         menuItem.view = viewController.view
-        menu.addItem(menuItem)
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.insertItem(menuItem, atIndex: applicationStatistics.count)
         self.setIntervalMenuState()
-        menu.addItem(configMenuItem)
-        menu.addItem(aboutMenuItem)
-        menu.addItem(quitMenuItem)
     }
 
     private func setIntervalMenuState() {
@@ -104,7 +99,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         case 3:
             todayMenuItem.state = NSOnState
         default:
-            0 == 0
+            break
         }
     }
 
