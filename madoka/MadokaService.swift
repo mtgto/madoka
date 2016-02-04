@@ -45,7 +45,13 @@ class MadokaService: NSObject {
             .map {
                 (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSinceDate($0.start))
             }
-        debugPrint(self.localizedNames)
+        if let application: NSRunningApplication = NSWorkspace.sharedWorkspace().frontmostApplication {
+            if let applicationIdentfier = application.bundleIdentifier {
+                if let localizedName = application.localizedName {
+                    self.usingApp = UsingApplication(applicationIdentifier: applicationIdentfier, localizedName: localizedName, since: NSDate())
+                }
+            }
+        }
     }
     
     /**

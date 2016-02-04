@@ -91,8 +91,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             .filter { $0.duration >= minimumDuration }
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
         
-        let menuItemCount = menu.itemArray.count
-        for _ in 0..<menuItemCount-4 {
+        for _ in 0..<menu.itemArray.count-4 {
             menu.removeItemAtIndex(0)
         }
 
