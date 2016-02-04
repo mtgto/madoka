@@ -87,7 +87,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
     func menuWillOpen(menu: NSMenu) {
         let current = NSDate()
-        let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
+        let applicationStatistics: [(name: String, icon: NSImage?, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
             .filter { $0.duration >= minimumDuration }
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
         
@@ -99,7 +99,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             let title = String(format: "%@ (%.1f %%)", statistic.name, statistic.duration * 100 / totalDuration)
             let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
             menuItem.enabled = true
-            menuItem.image = self.images[i % self.images.count]
+            if let sourceIcon = statistic.icon {
+                menuItem.image = StatusMenuController.resizedIconImage(sourceIcon)
+            }
             menu.insertItem(menuItem, atIndex: i)
             let subtitle = String(format: "%02d:%02d", Int(statistic.duration) / 60, Int(statistic.duration) % 60)
             let subMenu = NSMenu(title: "")
@@ -139,5 +141,18 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         color.drawSwatchInRect(NSMakeRect(0, 0, width, height))
         image.unlockFocus()
         return image
+    }
+
+    private static func resizedIconImage(source: NSImage) -> NSImage {
+        let width: CGFloat = 16
+        let height: CGFloat = 16
+        let newSize = NSMakeSize(width, height)
+        let image = NSImage(size: newSize)
+        image.lockFocus()
+        source.size = newSize
+        NSGraphicsContext.currentContext()?.imageInterpolation = .High
+        source.drawAtPoint(NSZeroPoint, fromRect: NSRect(x: 0, y: 0, width: width, height: height), operation: .CompositeCopy, fraction: 1.0)
+        image.unlockFocus()
+        return image;
     }
 }

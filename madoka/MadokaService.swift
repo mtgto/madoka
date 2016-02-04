@@ -33,7 +33,7 @@ class MadokaService: NSObject {
      * If you need to use older statistics, use realm.
      */
     private var statistics: Array<StatisticTuple> = []
-    
+
     override init() {
         super.init()
         let realm = try! Realm()
@@ -110,7 +110,7 @@ class MadokaService: NSObject {
         }
     }
 
-    func usedAppsSince(since: NSDate, to: NSDate) -> [(name: String, duration: NSTimeInterval)] {
+    func usedAppsSince(since: NSDate, to: NSDate) -> [(name: String, icon: NSImage?, duration: NSTimeInterval)] {
         let sinceReference = since.timeIntervalSinceReferenceDate
         let toReference = to.timeIntervalSinceReferenceDate
         return self.currentStatistics().reduce([String: NSTimeInterval]()) { (var dict: [String: NSTimeInterval], stat) in
@@ -126,7 +126,7 @@ class MadokaService: NSObject {
         }.sort {
             return $0.1 > $1.1
         }.map {
-            return (name: self.localizedNames[$0.0]!, duration: $0.1)
+            return (name: self.localizedNames[$0.0]!, icon: MadokaService.applicationIconWithBundleIdentifier($0.0), duration: $0.1)
         }
     }
 
@@ -150,5 +150,12 @@ class MadokaService: NSObject {
             realm.add(localizedName, update: true)
         }
         self.statistics.append(applicationIdentifier: lastUsingApp.applicationIdentifier, since: lastUsingApp.since.timeIntervalSinceReferenceDate, duration: duration)
+    }
+
+    private class func applicationIconWithBundleIdentifier(identifier: String) -> NSImage? {
+        guard let path = NSWorkspace.sharedWorkspace().absolutePathForAppBundleWithIdentifier(identifier) else {
+            return nil
+        }
+        return NSWorkspace.sharedWorkspace().iconForFile(path)
     }
 }
