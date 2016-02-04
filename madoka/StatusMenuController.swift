@@ -86,12 +86,10 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
 
     func menuWillOpen(menu: NSMenu) {
-        let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
         let current = NSDate()
         let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
             .filter { $0.duration >= minimumDuration }
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
-        viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
         
         let menuItemCount = menu.itemArray.count
         for _ in 0..<menuItemCount-4 {
@@ -110,7 +108,13 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             menuItem.submenu = subMenu
         }
         let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
-        menuItem.view = viewController.view
+        if applicationStatistics.isEmpty {
+            menuItem.title = NSLocalizedString("Not have enough usage yet to display", comment: "Not have enough usage yet to display")
+        } else {
+            let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
+            viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
+            menuItem.view = viewController.view
+        }
         menu.insertItem(menuItem, atIndex: applicationStatistics.count)
         self.setIntervalMenuState()
     }
