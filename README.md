@@ -12,7 +12,7 @@ MADOKA means `Monitoring Application Displaying Observation on the Kind of your 
 
 ## Builds
 ```sh
-$ carthage update
+$ carthage bootstrap
 $ open madoka.xcodeproj
 ```
 
