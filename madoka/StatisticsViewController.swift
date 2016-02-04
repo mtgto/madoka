@@ -9,7 +9,7 @@
 import Cocoa
 
 class StatisticsViewController: NSViewController {
-    func updateData(values: [(legend: String, color: NSColor, ratio: Float)]) {
+    func updateData(values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)]) {
         let view = self.view as! StatisticsView
         view.updateValues(values)
     }

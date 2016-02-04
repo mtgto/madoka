@@ -113,7 +113,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             menuItem.title = NSLocalizedString("Not have enough usage yet to display", comment: "Not have enough usage yet to display")
         } else {
             let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
-            viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
+            viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration), icon: $0.element.icon) })
             menuItem.view = viewController.view
         }
         menu.insertItem(menuItem, atIndex: applicationStatistics.count)

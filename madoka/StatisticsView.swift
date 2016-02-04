@@ -12,14 +12,15 @@ class StatisticsView: NSView {
     enum LegendType {
         case Ratio
         case ApplicationName
+        case ApplicationIcon
 
-        static let values: [LegendType] = [.Ratio, .ApplicationName]
+        static let values: [LegendType] = [.Ratio, .ApplicationName, .ApplicationIcon]
     }
 
-    private var values: [(legend: String, color: NSColor, ratio: Float)] = []
+    private var values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)] = []
     private var legendType: LegendType = .Ratio
     
-    func updateValues(values: [(legend: String, color: NSColor, ratio: Float)]) {
+    func updateValues(values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)]) {
         self.values = values
     }
     
@@ -51,6 +52,28 @@ class StatisticsView: NSView {
         let lineAttributes = [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(14)]
         let truncationToken = CTLineCreateWithAttributedString(NSAttributedString(string: "…", attributes: lineAttributes))
 
+        func drawString(string: String, posX: CGFloat, posY: CGFloat) {
+            let attributedString = NSAttributedString(string: string, attributes: lineAttributes)
+            let line = CTLineCreateWithAttributedString(attributedString)
+            let truncatedLine = CTLineCreateTruncatedLine(line, lineWidth, .End, truncationToken)!
+            CGContextSetTextPosition(context, posX, posY)
+            CGContextSaveGState(context)
+            CGContextSetShadow(context, CGSizeMake(1, 1), 5)
+            CTLineDraw(truncatedLine, context)
+            CGContextRestoreGState(context)
+        }
+
+        func drawImage(image: NSImage?, posX: CGFloat, posY: CGFloat) {
+            if let legendImage = image {
+                CGContextSaveGState(context)
+                CGContextSetShadow(context, CGSizeMake(1, 1), 5)
+                let imageRect: UnsafeMutablePointer<NSRect> = nil
+                let CGImage = legendImage.CGImageForProposedRect(imageRect, context: nil, hints: nil)
+                CGContextDrawImage(context, CGRectMake(posX, posY, legendImage.size.width, legendImage.size.height), CGImage)
+                CGContextRestoreGState(context)
+            }
+        }
+
         for value in values {
             CGContextSetFillColorWithColor(context, value.color.CGColor)
             CGContextMoveToPoint(context, cx, cy)
@@ -65,22 +88,14 @@ class StatisticsView: NSView {
                 let strx = cx + cos(midRadian) * radius * 0.5
                 let stry = cy + sin(midRadian) * radius * 0.5
 
-                let string: String
                 switch legendType {
                 case .Ratio:
-                    string = String(format: "%.1f%%", value.ratio * 100)
+                    drawString(String(format: "%.1f%%", value.ratio * 100), posX: strx - 20, posY: stry)
                 case .ApplicationName:
-                    string = value.legend
+                    drawString(value.legend, posX: strx - 20, posY: stry)
+                case .ApplicationIcon:
+                    drawImage(value.icon, posX: strx - 10, posY: stry)
                 }
-
-                let attributedString = NSAttributedString(string: string, attributes: lineAttributes)
-                let line = CTLineCreateWithAttributedString(attributedString)
-                let truncatedLine = CTLineCreateTruncatedLine(line, lineWidth, .End, truncationToken)!
-                CGContextSetTextPosition(context, strx - 20, stry)
-                CGContextSaveGState(context)
-                CGContextSetShadow(context, CGSizeMake(1, 1), 5)
-                CTLineDraw(truncatedLine, context)
-                CGContextRestoreGState(context)
             }
         }
     }
