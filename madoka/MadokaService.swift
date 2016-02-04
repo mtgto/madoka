@@ -69,7 +69,6 @@ class MadokaService: NSObject {
      * Be invoked from NSNotifacionCenter when computer is going to sleep.
      */
     func willSleep(notification: NSNotification?) {
-        debugPrint("willSleep")
         applicationChanged(nil)
     }
 
@@ -77,15 +76,32 @@ class MadokaService: NSObject {
      * Be invoked from NSNotifacionCenter when computer wake.
      */
     func didWake(notification: NSNotification?) {
-        debugPrint("didWake")
         if let application = NSWorkspace.sharedWorkspace().frontmostApplication {
             applicationChanged(application)
         }
     }
 
+    /**
+     * Be invoked when madoka will terminate.
+     */
     func willTerminate() {
-        debugPrint("willTerminate")
         applicationChanged(nil)
+    }
+
+    /**
+     * Be invoked from NSNotifacionCenter when user switched out.
+     */
+    func sessionDidResignActive(notification: NSNotification?) {
+        applicationChanged(nil)
+    }
+
+    /**
+     * Be invoked from NSNotifacionCenter when user switched in.
+     */
+    func sessionDidBecomeActive(notification: NSNotification?) {
+        if let application = NSWorkspace.sharedWorkspace().frontmostApplication {
+            applicationChanged(application)
+        }
     }
 
     /**

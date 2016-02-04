@@ -24,6 +24,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         notificationCenter.addObserver(self.madokaService, selector: "didActivateApplication:", name: NSWorkspaceDidActivateApplicationNotification, object: nil)
         notificationCenter.addObserver(self.madokaService, selector: "willSleep:", name: NSWorkspaceWillSleepNotification, object: nil)
         notificationCenter.addObserver(self.madokaService, selector: "didWake:", name: NSWorkspaceDidWakeNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: "sessionDidResignActive:", name: NSWorkspaceSessionDidResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: "sessionDidBecomeActive:", name: NSWorkspaceSessionDidBecomeActiveNotification, object: nil)
         setupStatusMenu()
     }
 
