@@ -41,7 +41,7 @@ class MadokaService: NSObject {
             .reduce([String: String]()) { (var dict, element: LocalizedName) in
                 dict[element.applicationIdentifier] = element.localizedName; return dict
             }
-        self.statistics = Array<Statistic>(realm.objects(Statistic))
+        self.statistics = Array<Statistic>(realm.objects(Statistic).filter("end >= %@", NSDate(timeIntervalSinceNow: -24 * 60 * 60)))
             .map {
                 (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSinceDate($0.start))
             }
