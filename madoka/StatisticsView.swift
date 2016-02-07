@@ -84,12 +84,12 @@ class StatisticsView: NSView {
             }
         }
 
-        for value in values {
+        for value in values.reverse() {
             CGContextSetFillColorWithColor(context, value.color.CGColor)
             CGContextMoveToPoint(context, cx, cy)
-            let toRadian = CGFloat(radian - CGFloat(Double(value.ratio) * 2 * pi))
+            let toRadian = CGFloat(radian + CGFloat(Double(value.ratio) * 2 * pi))
             let midRadian = (radian + toRadian) / 2
-            CGContextAddArc(context, cx, cy, radius, radian, toRadian, 1)
+            CGContextAddArc(context, cx, cy, radius, radian, toRadian, 0)
             radian = toRadian
             CGContextClosePath(context)
             CGContextFillPath(context)
@@ -100,12 +100,12 @@ class StatisticsView: NSView {
 
                 switch legendType {
                 case .ApplicationName:
-                    drawString(value.legend, posX: legendX - 20, posY: legendY + 5)
+                    drawString(value.legend, posX: legendX - 25, posY: legendY + 5)
                 case .ApplicationIcon:
                     let imageLengthOfSide = CGFloat(min(32, 14 + value.ratio * 40))
-                    drawImage(value.icon, posX: legendX - imageLengthOfSide / 2, posY: legendY + 5, width: imageLengthOfSide, height: imageLengthOfSide)
+                    drawImage(value.icon, posX: legendX - imageLengthOfSide / 2, posY: legendY, width: imageLengthOfSide, height: imageLengthOfSide)
                 }
-                drawString(String(format: "%.1f%%", value.ratio * 100), posX: legendX - 20, posY: legendY - 15)
+                drawString(String(format: "%.1f%%", value.ratio * 100), posX: legendX - 20, posY: legendY - 14)
             }
         }
     }
