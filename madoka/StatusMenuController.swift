@@ -107,7 +107,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
         let menuItem = NSMenuItem(title: "", action: nil, keyEquivalent: "")
         if applicationStatistics.isEmpty {
-            menuItem.title = NSLocalizedString("Not have enough usage yet to display", comment: "Not have enough usage yet to display")
+            menuItem.title = NSLocalizedString("No app is used one minute or more", comment: "No app is used one minute or more")
         } else {
             let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
             viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration), icon: $0.element.icon) })
