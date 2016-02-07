@@ -48,6 +48,7 @@ class MadokaService: NSObject {
         if let application: NSRunningApplication = NSWorkspace.sharedWorkspace().frontmostApplication {
             if let applicationIdentfier = application.bundleIdentifier {
                 if let localizedName = application.localizedName {
+                    self.localizedNames[applicationIdentfier] = localizedName
                     self.usingApp = UsingApplication(applicationIdentifier: applicationIdentfier, localizedName: localizedName, since: NSDate())
                 }
             }
