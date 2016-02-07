@@ -41,8 +41,6 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
     }
 
-    private let images: [NSImage]
-
     private var intervalIndex: IntervalIndex = .OneHour
 
     /**
@@ -59,7 +57,6 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var todayMenuItem: NSMenuItem!
 
     override init() {
-        self.images = colors.map { StatusMenuController.imageFromColor($0) }
         self.intervalIndex = IntervalIndex(rawValue: NSUserDefaults.standardUserDefaults().integerForKey(Constants.KeyPreferenceIntervalIndex))!
     }
     
@@ -133,26 +130,15 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
     }
 
-    private static func imageFromColor(color: NSColor) -> NSImage {
-        let width: CGFloat = 16
-        let height: CGFloat = 16
-        let image = NSImage(size: NSMakeSize(width, height))
-        image.lockFocus()
-        color.drawSwatchInRect(NSMakeRect(0, 0, width, height))
-        image.unlockFocus()
-        return image
-    }
-
     private static func resizedIconImage(source: NSImage) -> NSImage {
         let width: CGFloat = 16
         let height: CGFloat = 16
         let newSize = NSMakeSize(width, height)
-        let image = NSImage(size: newSize)
-        image.lockFocus()
-        source.size = newSize
+        let newImage = NSImage(size: newSize)
+        newImage.lockFocus()
         NSGraphicsContext.currentContext()?.imageInterpolation = .High
-        source.drawAtPoint(NSZeroPoint, fromRect: NSRect(x: 0, y: 0, width: width, height: height), operation: .CompositeCopy, fraction: 1.0)
-        image.unlockFocus()
-        return image;
+        source.drawInRect(NSMakeRect(0, 0, width, height), fromRect: NSMakeRect(0, 0, source.size.width, source.size.height), operation: .CompositeCopy, fraction: 1.0)
+        newImage.unlockFocus()
+        return newImage
     }
 }

@@ -10,15 +10,19 @@ import Cocoa
 
 class StatisticsView: NSView {
     enum LegendType {
-        case Ratio
         case ApplicationName
         case ApplicationIcon
 
-        static let values: [LegendType] = [.Ratio, .ApplicationName, .ApplicationIcon]
+        static let values: [LegendType] = [.ApplicationName, .ApplicationIcon]
     }
 
     private var values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)] = []
-    private var legendType: LegendType = .Ratio
+    private var legendType: LegendType = .ApplicationName
+
+    /**
+     * Minumum ratio to display the legend.
+     */
+    private let minimumRatio: Float = 0.1
     
     func updateValues(values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)]) {
         self.values = values
@@ -44,12 +48,15 @@ class StatisticsView: NSView {
     override func drawRect(dirtyRect: NSRect) {
         let cy = CGRectGetHeight(self.bounds) / 2
         let cx = CGRectGetWidth(self.bounds) / 2
-        let radius = min(cy * 0.8, cx * 0.8)
+        let graphSizeRatio: CGFloat = 0.85
+        let radius = min(cy * graphSizeRatio, cx * graphSizeRatio)
         let pi = M_PI
         var radian: CGFloat = CGFloat(pi / 2)
         let context = self.currentContext!
         let lineWidth = Double(CGRectGetWidth(self.bounds) / 4)
-        let lineAttributes = [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(14)]
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = NSCenterTextAlignment
+        let lineAttributes = [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(12), NSParagraphStyleAttributeName: paragraphStyle]
         let truncationToken = CTLineCreateWithAttributedString(NSAttributedString(string: "…", attributes: lineAttributes))
 
         func drawString(string: String, posX: CGFloat, posY: CGFloat) {
@@ -63,14 +70,17 @@ class StatisticsView: NSView {
             CGContextRestoreGState(context)
         }
 
-        func drawImage(image: NSImage?, posX: CGFloat, posY: CGFloat) {
+        func drawImage(image: NSImage?, posX: CGFloat, posY: CGFloat, width: CGFloat, height: CGFloat) {
             if let legendImage = image {
                 CGContextSaveGState(context)
                 CGContextSetShadow(context, CGSizeMake(1, 1), 5)
                 let imageRect: UnsafeMutablePointer<NSRect> = nil
+                let originalSize = legendImage.size
+                legendImage.size = NSMakeSize(width, height)
                 let CGImage = legendImage.CGImageForProposedRect(imageRect, context: nil, hints: nil)
                 CGContextDrawImage(context, CGRectMake(posX, posY, legendImage.size.width, legendImage.size.height), CGImage)
                 CGContextRestoreGState(context)
+                legendImage.size = originalSize
             }
         }
 
@@ -84,18 +94,18 @@ class StatisticsView: NSView {
             CGContextClosePath(context)
             CGContextFillPath(context)
             
-            if value.ratio >= 0.1 {
-                let strx = cx + cos(midRadian) * radius * 0.5
-                let stry = cy + sin(midRadian) * radius * 0.5
+            if value.ratio >= minimumRatio {
+                let legendX = cx + cos(midRadian) * radius / 2
+                let legendY = cy + sin(midRadian) * radius / 2
 
                 switch legendType {
-                case .Ratio:
-                    drawString(String(format: "%.1f%%", value.ratio * 100), posX: strx - 20, posY: stry)
                 case .ApplicationName:
-                    drawString(value.legend, posX: strx - 20, posY: stry)
+                    drawString(value.legend, posX: legendX - 20, posY: legendY + 5)
                 case .ApplicationIcon:
-                    drawImage(value.icon, posX: strx - 10, posY: stry)
+                    let imageLengthOfSide = CGFloat(min(32, 14 + value.ratio * 40))
+                    drawImage(value.icon, posX: legendX - imageLengthOfSide / 2, posY: legendY + 5, width: imageLengthOfSide, height: imageLengthOfSide)
                 }
+                drawString(String(format: "%.1f%%", value.ratio * 100), posX: legendX - 20, posY: legendY - 15)
             }
         }
     }
