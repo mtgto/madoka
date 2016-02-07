@@ -10,6 +10,7 @@
 		CE6D15A91C5E0AC900244F2A /* StatisticsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE6D15A81C5E0AC900244F2A /* StatisticsViewController.xib */; };
 		CE6D15AB1C5E0B3A00244F2A /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D15AA1C5E0B3A00244F2A /* StatisticsView.swift */; };
 		CE6D15AD1C5E0D8A00244F2A /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6D15AC1C5E0D8A00244F2A /* StatisticsViewController.swift */; };
+		CE805A0F1C679946004DE508 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = CE805A0E1C679946004DE508 /* Credits.rtf */; };
 		CEB27FB01C5C48AF0051F5E1 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */; };
 		CEB27FB31C5CB0DC0051F5E1 /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */; };
 		CEB27FB51C5CB2200051F5E1 /* LocalizedName.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */; };
@@ -55,6 +56,7 @@
 		CE6D15A81C5E0AC900244F2A /* StatisticsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticsViewController.xib; sourceTree = "<group>"; };
 		CE6D15AA1C5E0B3A00244F2A /* StatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
 		CE6D15AC1C5E0D8A00244F2A /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
+		CE805A0E1C679946004DE508 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = madoka/MyPlayground.playground; sourceTree = "<group>"; };
 		CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				CEB5B0111B6C548400B79313 /* madoka.entitlements */,
 				CEB5B0161B76FDA900B79313 /* Realm.framework */,
 				CEB5B0171B76FDA900B79313 /* RealmSwift.framework */,
+				CE805A0E1C679946004DE508 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE805A0F1C679946004DE508 /* Credits.rtf in Resources */,
 				CEB5AFC81B5D089600B79313 /* Images.xcassets in Resources */,
 				CE6D15A91C5E0AC900244F2A /* StatisticsViewController.xib in Resources */,
 				CEB5AFE11B5D40D300B79313 /* Localizable.strings in Resources */,
@@ -402,7 +406,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = madoka/madoka.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -421,7 +425,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = madoka/madoka.entitlements;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
