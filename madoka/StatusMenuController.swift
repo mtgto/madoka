@@ -41,8 +41,6 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
     }
 
-    private let images: [NSImage]
-
     private var intervalIndex: IntervalIndex = .OneHour
 
     /**
@@ -59,7 +57,6 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     @IBOutlet weak var todayMenuItem: NSMenuItem!
 
     override init() {
-        self.images = colors.map { StatusMenuController.imageFromColor($0) }
         self.intervalIndex = IntervalIndex(rawValue: NSUserDefaults.standardUserDefaults().integerForKey(Constants.KeyPreferenceIntervalIndex))!
     }
     
@@ -87,7 +84,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
     func menuWillOpen(menu: NSMenu) {
         let current = NSDate()
-        let applicationStatistics: [(name: String, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
+        let applicationStatistics: [(name: String, icon: NSImage?, duration: NSTimeInterval)] = madokaService.usedAppsSince(intervalIndex.startDateFrom(current), to: current)
             .filter { $0.duration >= minimumDuration }
         let totalDuration = applicationStatistics.reduce(0) { return $0 + $1.duration }
         
@@ -99,7 +96,9 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             let title = String(format: "%@ (%.1f %%)", statistic.name, statistic.duration * 100 / totalDuration)
             let menuItem = NSMenuItem(title: title, action: nil, keyEquivalent: "")
             menuItem.enabled = true
-            menuItem.image = self.images[i % self.images.count]
+            if let sourceIcon = statistic.icon {
+                menuItem.image = StatusMenuController.resizedIconImage(sourceIcon)
+            }
             menu.insertItem(menuItem, atIndex: i)
             let subtitle = String(format: "%02d:%02d", Int(statistic.duration) / 60, Int(statistic.duration) % 60)
             let subMenu = NSMenu(title: "")
@@ -111,7 +110,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
             menuItem.title = NSLocalizedString("Not have enough usage yet to display", comment: "Not have enough usage yet to display")
         } else {
             let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: NSBundle.mainBundle())!
-            viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration)) })
+            viewController.updateData(applicationStatistics.enumerate().map { (legend: $0.element.name, color:self.colors[$0.index % self.colors.count], ratio: Float($0.element.duration / totalDuration), icon: $0.element.icon) })
             menuItem.view = viewController.view
         }
         menu.insertItem(menuItem, atIndex: applicationStatistics.count)
@@ -131,13 +130,15 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
     }
 
-    private static func imageFromColor(color: NSColor) -> NSImage {
+    private static func resizedIconImage(source: NSImage) -> NSImage {
         let width: CGFloat = 16
         let height: CGFloat = 16
-        let image = NSImage(size: NSMakeSize(width, height))
-        image.lockFocus()
-        color.drawSwatchInRect(NSMakeRect(0, 0, width, height))
-        image.unlockFocus()
-        return image
+        let newSize = NSMakeSize(width, height)
+        let newImage = NSImage(size: newSize)
+        newImage.lockFocus()
+        NSGraphicsContext.currentContext()?.imageInterpolation = .High
+        source.drawInRect(NSMakeRect(0, 0, width, height), fromRect: NSMakeRect(0, 0, source.size.width, source.size.height), operation: .CompositeCopy, fraction: 1.0)
+        newImage.unlockFocus()
+        return newImage
     }
 }
