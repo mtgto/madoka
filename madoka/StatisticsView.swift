@@ -84,15 +84,20 @@ class StatisticsView: NSView {
             }
         }
 
-        for value in values.reverse() {
-            CGContextSetFillColorWithColor(context, value.color.CGColor)
-            CGContextMoveToPoint(context, cx, cy)
+        for value in values.reverse() { // draw in descending order so that larger element can redraw smaller.
             let toRadian = CGFloat(radian + CGFloat(Double(value.ratio) * 2 * pi))
             let midRadian = (radian + toRadian) / 2
+            let darkBrightness: CGFloat = max(0.0, value.color.brightnessComponent - 0.4)
+            let gradientColors = [value.color.CGColor, NSColor(calibratedHue: value.color.hueComponent, saturation: value.color.saturationComponent, brightness: darkBrightness, alpha: value.color.alphaComponent).CGColor]
+            let gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), gradientColors, [1.0, 0.0])
+
+            CGContextSaveGState(context)
+            CGContextMoveToPoint(context, cx, cy)
             CGContextAddArc(context, cx, cy, radius, radian, toRadian, 0)
             radian = toRadian
-            CGContextClosePath(context)
-            CGContextFillPath(context)
+            CGContextClip(context)
+            CGContextDrawLinearGradient(context, gradient, CGPointMake(cx, cy - radius), CGPointMake(cx, cy + radius), CGGradientDrawingOptions.DrawsAfterEndLocation)
+            CGContextRestoreGState(context)
             
             if value.ratio >= minimumRatio {
                 let legendX = cx + cos(midRadian) * radius / 2
