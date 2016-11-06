@@ -10,30 +10,30 @@ import Cocoa
 
 class StatisticsView: NSView {
     enum LegendType {
-        case ApplicationName
-        case ApplicationIcon
+        case applicationName
+        case applicationIcon
 
-        static let values: [LegendType] = [.ApplicationName, .ApplicationIcon]
+        static let values: [LegendType] = [.applicationName, .applicationIcon]
     }
 
     private var values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)] = []
-    private var legendType: LegendType = .ApplicationName
+    private var legendType: LegendType = .applicationName
 
     /**
      * Minumum ratio to display the legend.
      */
     private let minimumRatio: Float = 0.1
     
-    func updateValues(values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)]) {
+    func updateValues(_ values: [(legend: String, color: NSColor, ratio: Float, icon: NSImage?)]) {
         self.values = values
     }
     
     private var currentContext : CGContext? {
         get {
             if #available(OSX 10.10, *) {
-                return NSGraphicsContext.currentContext()?.CGContext
-            } else if let contextPointer = NSGraphicsContext.currentContext()?.graphicsPort {
-                let context: CGContextRef = Unmanaged.fromOpaque(COpaquePointer(contextPointer)).takeUnretainedValue()
+                return NSGraphicsContext.current()?.cgContext
+            } else if let contextPointer: UnsafeMutableRawPointer = NSGraphicsContext.current()?.graphicsPort {
+                let context: CGContext = Unmanaged.fromOpaque(contextPointer).takeUnretainedValue()
                 return context
             }
             
@@ -42,71 +42,71 @@ class StatisticsView: NSView {
     }
 
     override func viewDidMoveToWindow() {
-        self.window?.becomeKeyWindow()
+        self.window?.becomeKey()
     }
     
-    override func drawRect(dirtyRect: NSRect) {
-        let cy = CGRectGetHeight(self.bounds) / 2
-        let cx = CGRectGetWidth(self.bounds) / 2
+    override func draw(_ dirtyRect: NSRect) {
+        let cy = self.bounds.height / 2
+        let cx = self.bounds.width / 2
         let graphSizeRatio: CGFloat = 0.85
         let radius = min(cy * graphSizeRatio, cx * graphSizeRatio)
         let pi = M_PI
         var radian: CGFloat = CGFloat(pi / 2)
         let context = self.currentContext!
-        let lineWidth = Double(CGRectGetWidth(self.bounds) / 4)
+        let lineWidth = Double(self.bounds.width / 4)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = NSCenterTextAlignment
-        let lineAttributes = [NSForegroundColorAttributeName: NSColor.whiteColor(), NSFontAttributeName: NSFont.systemFontOfSize(12), NSParagraphStyleAttributeName: paragraphStyle]
+        let lineAttributes = [NSForegroundColorAttributeName: NSColor.white, NSFontAttributeName: NSFont.systemFont(ofSize: 12), NSParagraphStyleAttributeName: paragraphStyle]
         let truncationToken = CTLineCreateWithAttributedString(NSAttributedString(string: "…", attributes: lineAttributes))
 
-        func drawString(string: String, posX: CGFloat, posY: CGFloat) {
+        func drawString(_ string: String, posX: CGFloat, posY: CGFloat) {
             let attributedString = NSAttributedString(string: string, attributes: lineAttributes)
             let line = CTLineCreateWithAttributedString(attributedString)
-            let truncatedLine = CTLineCreateTruncatedLine(line, lineWidth, .End, truncationToken)!
-            CGContextSetTextPosition(context, posX, posY)
-            CGContextSaveGState(context)
-            CGContextSetShadow(context, CGSizeMake(1, 1), 5)
+            let truncatedLine = CTLineCreateTruncatedLine(line, lineWidth, .end, truncationToken)!
+            context.textPosition = CGPoint(x: posX, y: posY)
+            context.saveGState()
+            context.setShadow(offset: CGSize(width: 1, height: 1), blur: 5)
             CTLineDraw(truncatedLine, context)
-            CGContextRestoreGState(context)
+            context.restoreGState()
         }
 
-        func drawImage(image: NSImage?, posX: CGFloat, posY: CGFloat, width: CGFloat, height: CGFloat) {
+        func drawImage(_ image: NSImage?, posX: CGFloat, posY: CGFloat, width: CGFloat, height: CGFloat) {
             if let legendImage = image {
-                CGContextSaveGState(context)
-                CGContextSetShadow(context, CGSizeMake(1, 1), 5)
-                let imageRect: UnsafeMutablePointer<NSRect> = nil
+                context.saveGState()
+                context.setShadow(offset: CGSize(width: 1, height: 1), blur: 5)
+                let imageRect: UnsafeMutablePointer<NSRect>? = nil
                 let originalSize = legendImage.size
                 legendImage.size = NSMakeSize(width, height)
-                let CGImage = legendImage.CGImageForProposedRect(imageRect, context: nil, hints: nil)
-                CGContextDrawImage(context, CGRectMake(posX, posY, legendImage.size.width, legendImage.size.height), CGImage)
-                CGContextRestoreGState(context)
+                let CGImage = legendImage.cgImage(forProposedRect: imageRect, context: nil, hints: nil)
+                context.draw(CGImage!, in: CGRect(x: posX, y: posY, width: legendImage.size.width, height: legendImage.size.height))
+                context.restoreGState()
                 legendImage.size = originalSize
             }
         }
 
-        for value in values.reverse() { // draw in descending order so that larger element can redraw smaller.
+        for value in values.reversed() { // draw in descending order so that larger element can redraw smaller.
             let toRadian = CGFloat(radian + CGFloat(Double(value.ratio) * 2 * pi))
             let midRadian = (radian + toRadian) / 2
             let darkBrightness: CGFloat = max(0.0, value.color.brightnessComponent - 0.4)
-            let gradientColors = [value.color.CGColor, NSColor(calibratedHue: value.color.hueComponent, saturation: value.color.saturationComponent, brightness: darkBrightness, alpha: value.color.alphaComponent).CGColor]
-            let gradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), gradientColors, [1.0, 0.0])
+            let gradientColors = [value.color.cgColor, NSColor(calibratedHue: value.color.hueComponent, saturation: value.color.saturationComponent, brightness: darkBrightness, alpha: value.color.alphaComponent).cgColor]
+            let gradient = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors as CFArray, locations: [1.0, 0.0])
 
-            CGContextSaveGState(context)
-            CGContextMoveToPoint(context, cx, cy)
-            CGContextAddArc(context, cx, cy, radius, radian, toRadian, 0)
+            context.saveGState()
+            context.move(to: CGPoint(x: cx, y: cy))
+            context.addArc(center: CGPoint(x: cx, y: cy), radius: radius, startAngle: radian, endAngle: toRadian, clockwise: false)
             radian = toRadian
-            CGContextClip(context)
-            CGContextDrawLinearGradient(context, gradient, CGPointMake(cx, cy - radius), CGPointMake(cx, cy + radius), CGGradientDrawingOptions.DrawsAfterEndLocation)
-            CGContextRestoreGState(context)
+            context.clip()
+            context.drawLinearGradient(gradient!, start: CGPoint(x: cx, y: cy - radius), end: CGPoint(x: cx, y: cy + radius), options: CGGradientDrawingOptions.drawsAfterEndLocation)
+            context.restoreGState()
             
             if value.ratio >= minimumRatio {
                 let legendX = cx + cos(midRadian) * radius / 2
                 let legendY = cy + sin(midRadian) * radius / 2
 
                 switch legendType {
-                case .ApplicationName:
+                case .applicationName:
                     drawString(value.legend, posX: legendX - 25, posY: legendY + 5)
-                case .ApplicationIcon:
+                case .applicationIcon:
                     let imageLengthOfSide = CGFloat(min(32, 14 + value.ratio * 40))
                     drawImage(value.icon, posX: legendX - imageLengthOfSide / 2, posY: legendY, width: imageLengthOfSide, height: imageLengthOfSide)
                 }
@@ -115,8 +115,8 @@ class StatisticsView: NSView {
         }
     }
 
-    override func mouseDown(theEvent: NSEvent) {
-        let currentIndex = LegendType.values.indexOf(legendType)!
+    override func mouseDown(with theEvent: NSEvent) {
+        let currentIndex = LegendType.values.index(of: legendType)!
         legendType = LegendType.values[(currentIndex + 1) % LegendType.values.count]
     }
 }

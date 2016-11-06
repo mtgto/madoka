@@ -2,8 +2,8 @@
 //  madokaTests.swift
 //  madokaTests
 //
-//  Created by User on 2015/07/20.
-//  Copyright (c) 2015年 mtgto. All rights reserved.
+//  Created by mtgto on 2015/07/20.
+//  Copyright (c) 2015 mtgto. All rights reserved.
 //
 
 import Cocoa
@@ -28,7 +28,7 @@ class madokaTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }

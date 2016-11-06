@@ -1,6 +1,6 @@
 MADOKA
 ====
-MADOKA is Mac OS X Application to display your application usage.
+MADOKA is macOS Application to display your application usage.
 
 MADOKA means `Monitoring Application Displaying Observation on the Kind of your Activities`.
 
@@ -12,11 +12,11 @@ MADOKA means `Monitoring Application Displaying Observation on the Kind of your 
 ![screenshot](/screenshot.png)
 
 ## Requirements
-- Mac OS X 10.9 or later
+- macOS 10.9 or later
 
 ## Builds
 ```sh
-$ carthage bootstrap
+$ carthage bootstrap --platform Mac
 $ open madoka.xcodeproj
 ```
 

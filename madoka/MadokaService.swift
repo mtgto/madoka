@@ -10,14 +10,14 @@ import Cocoa
 import RealmSwift
 
 class MadokaService: NSObject {
-    private typealias StatisticTuple = (applicationIdentifier: String, since: NSTimeInterval, duration: NSTimeInterval)
+    private typealias StatisticTuple = (applicationIdentifier: String, since: TimeInterval, duration: TimeInterval)
 
     static let sharedInstance = MadokaService()
     
     struct UsingApplication {
         let applicationIdentifier: String
         let localizedName: String
-        let since: NSDate
+        let since: Date
     }
     
     private var usingApp: UsingApplication? = nil
@@ -32,24 +32,26 @@ class MadokaService: NSObject {
      * It contains only today's statistics.
      * If you need to use older statistics, use realm.
      */
-    private var statistics: Array<StatisticTuple> = []
+    private var statistics: [StatisticTuple] = []
 
     override init() {
         super.init()
         let realm = try! Realm()
-        self.localizedNames = Array<LocalizedName>(realm.objects(LocalizedName))
-            .reduce([String: String]()) { (var dict, element: LocalizedName) in
-                dict[element.applicationIdentifier] = element.localizedName; return dict
+        var localizedNames: [String: String] = [:]
+        realm.objects(LocalizedName.self)
+            .forEach { (element: LocalizedName) in
+                localizedNames[element.applicationIdentifier] = element.localizedName;
             }
-        self.statistics = Array<Statistic>(realm.objects(Statistic).filter("end >= %@", NSDate(timeIntervalSinceNow: -24 * 60 * 60)))
+        self.localizedNames = localizedNames
+        self.statistics = Array<Statistic>(realm.objects(Statistic.self).filter("end >= %@", Date(timeIntervalSinceNow: -24 * 60 * 60)))
             .map {
-                (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSinceDate($0.start))
+                (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSince($0.start as Date))
             }
-        if let application: NSRunningApplication = NSWorkspace.sharedWorkspace().frontmostApplication {
+        if let application: NSRunningApplication = NSWorkspace.shared().frontmostApplication {
             if let applicationIdentfier = application.bundleIdentifier {
                 if let localizedName = application.localizedName {
                     self.localizedNames[applicationIdentfier] = localizedName
-                    self.usingApp = UsingApplication(applicationIdentifier: applicationIdentfier, localizedName: localizedName, since: NSDate())
+                    self.usingApp = UsingApplication(applicationIdentifier: applicationIdentfier, localizedName: localizedName, since: Date())
                 }
             }
         }
@@ -58,7 +60,7 @@ class MadokaService: NSObject {
     /**
      * Be invoked from NSNotifacionCenter when active application has changed.
      */
-    func didActivateApplication(notification: NSNotification?) {
+    func didActivateApplication(_ notification: Notification?) {
         if let userInfo: [String: AnyObject] = notification?.userInfo as? [String: AnyObject] {
             if let application: NSRunningApplication = userInfo[NSWorkspaceApplicationKey] as? NSRunningApplication {
                 self.applicationChanged(application)
@@ -69,15 +71,15 @@ class MadokaService: NSObject {
     /**
      * Be invoked from NSNotifacionCenter when computer is going to sleep.
      */
-    func willSleep(notification: NSNotification?) {
+    func willSleep(_ notification: Notification?) {
         applicationChanged(nil)
     }
 
     /**
      * Be invoked from NSNotifacionCenter when computer wake.
      */
-    func didWake(notification: NSNotification?) {
-        if let application = NSWorkspace.sharedWorkspace().frontmostApplication {
+    func didWake(_ notification: Notification?) {
+        if let application = NSWorkspace.shared().frontmostApplication {
             applicationChanged(application)
         }
     }
@@ -92,15 +94,15 @@ class MadokaService: NSObject {
     /**
      * Be invoked from NSNotifacionCenter when user switched out.
      */
-    func sessionDidResignActive(notification: NSNotification?) {
+    func sessionDidResignActive(_ notification: Notification?) {
         applicationChanged(nil)
     }
 
     /**
      * Be invoked from NSNotifacionCenter when user switched in.
      */
-    func sessionDidBecomeActive(notification: NSNotification?) {
-        if let application = NSWorkspace.sharedWorkspace().frontmostApplication {
+    func sessionDidBecomeActive(_ notification: Notification?) {
+        if let application = NSWorkspace.shared().frontmostApplication {
             applicationChanged(application)
         }
     }
@@ -108,10 +110,10 @@ class MadokaService: NSObject {
     /**
      * Notify when current application changed.
      */
-    func applicationChanged(application: NSRunningApplication?) {
-        let current = NSDate()
+    func applicationChanged(_ application: NSRunningApplication?) {
+        let current = Date()
         if let lastApplication = self.usingApp {
-            let duration: NSTimeInterval = current.timeIntervalSinceDate(lastApplication.since)
+            let duration: TimeInterval = current.timeIntervalSince(lastApplication.since)
             self.updateUsingApp(lastApplication, duration: duration)
         }
         if let application = application {
@@ -127,20 +129,21 @@ class MadokaService: NSObject {
         }
     }
 
-    func usedAppsSince(since: NSDate, to: NSDate) -> [(name: String, icon: NSImage?, duration: NSTimeInterval)] {
+    func usedAppsSince(_ since: Date, to: Date) -> [(name: String, icon: NSImage?, duration: TimeInterval)] {
         let sinceReference = since.timeIntervalSinceReferenceDate
         let toReference = to.timeIntervalSinceReferenceDate
-        return self.currentStatistics().reduce([String: NSTimeInterval]()) { (var dict: [String: NSTimeInterval], stat) in
+        var usedDict: [String: TimeInterval] = [:]
+        self.currentStatistics().forEach { (stat) in
             let duration = min(stat.since + stat.duration, toReference) - max(sinceReference, stat.since)
             if duration > 0 && !self.ignoreApplicationIdentifiers.contains(stat.applicationIdentifier) {
-                if let lastDuration: NSTimeInterval = dict[stat.applicationIdentifier] {
-                    dict[stat.applicationIdentifier] = duration + lastDuration
+                if let lastDuration: TimeInterval = usedDict[stat.applicationIdentifier] {
+                    usedDict[stat.applicationIdentifier] = duration + lastDuration
                 } else {
-                    dict[stat.applicationIdentifier] = duration
+                    usedDict[stat.applicationIdentifier] = duration
                 }
             }
-            return dict
-        }.sort {
+        }
+        return usedDict.sorted {
             return $0.1 > $1.1
         }.map {
             return (name: self.localizedNames[$0.0]!, icon: MadokaService.applicationIconWithBundleIdentifier($0.0), duration: $0.1)
@@ -158,9 +161,9 @@ class MadokaService: NSObject {
         }
     }
     
-    private func updateUsingApp(lastUsingApp: UsingApplication, duration: NSTimeInterval) {
+    private func updateUsingApp(_ lastUsingApp: UsingApplication, duration: TimeInterval) {
         let realm = try! Realm()
-        let statistic: Statistic = Statistic(start: lastUsingApp.since, end: lastUsingApp.since.dateByAddingTimeInterval(duration), applicationIdentifier: lastUsingApp.applicationIdentifier)
+        let statistic: Statistic = Statistic(start: lastUsingApp.since, end: lastUsingApp.since.addingTimeInterval(duration), applicationIdentifier: lastUsingApp.applicationIdentifier)
         let localizedName: LocalizedName = LocalizedName(applicationIdentifier: lastUsingApp.applicationIdentifier, localizedName: lastUsingApp.localizedName)
         try! realm.write {
             realm.add(statistic)
@@ -169,10 +172,11 @@ class MadokaService: NSObject {
         self.statistics.append(applicationIdentifier: lastUsingApp.applicationIdentifier, since: lastUsingApp.since.timeIntervalSinceReferenceDate, duration: duration)
     }
 
-    private class func applicationIconWithBundleIdentifier(identifier: String) -> NSImage? {
-        guard let path = NSWorkspace.sharedWorkspace().absolutePathForAppBundleWithIdentifier(identifier) else {
+    private class func applicationIconWithBundleIdentifier(_ identifier: String) -> NSImage? {
+        guard let path = NSWorkspace.shared().absolutePathForApplication(withBundleIdentifier: identifier) else {
             return nil
         }
-        return NSWorkspace.sharedWorkspace().iconForFile(path)
+        debugPrint("path: \(path)")
+        return NSWorkspace.shared().icon(forFile: path)
     }
 }
