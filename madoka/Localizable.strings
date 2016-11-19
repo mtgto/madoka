@@ -3,3 +3,5 @@
 "Quit anyway" = "Quit anyway";
 "Cancel" = "Cancel";
 "No app is used one minute or more" = "No app is used one minute or more";
+"Error" = "Error";
+"Failed to set launch item at login." = "Failed to set launch item at login.";

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 class StatusMenuController: NSObject, NSMenuDelegate {
     private let madokaService: MadokaService = MadokaService.sharedInstance
@@ -56,10 +57,27 @@ class StatusMenuController: NSObject, NSMenuDelegate {
 
     @IBOutlet weak var todayMenuItem: NSMenuItem!
 
+    @IBOutlet weak var launchAtLoginMenuItem: NSMenuItem!
+    
     override init() {
         self.intervalIndex = IntervalIndex(rawValue: UserDefaults.standard.integer(forKey: Constants.KeyPreferenceIntervalIndex))!
     }
     
+    @IBAction func toggleLaunchAtLogin(_ sender: Any) {
+        if sender as! NSMenuItem == self.launchAtLoginMenuItem {
+            let status = !UserDefaults.standard.bool(forKey: Constants.KeyPreferenceLaunchAtLogin)
+            if SMLoginItemSetEnabled(Constants.HelperBundleIdentifier as CFString, status) {
+                UserDefaults.standard.set(status, forKey: Constants.KeyPreferenceLaunchAtLogin)
+                self.launchAtLoginMenuItem.state = status ? NSOnState : NSOffState
+            } else {
+                let alert = NSAlert()
+                alert.messageText = NSLocalizedString("Error", comment: "Error")
+                alert.informativeText = NSLocalizedString("Failed to set launch item at login.", comment: "Failed to set launch item at login.")
+                alert.runModal()
+            }
+        }
+    }
+
     @IBAction func menuSelected(_ sender: AnyObject) {
         oneHourMenuItem.state = NSOffState
         fourHoursMenuItem.state = NSOffState
@@ -115,6 +133,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
         menu.insertItem(menuItem, at: applicationStatistics.count)
         self.setIntervalMenuState()
+        self.launchAtLoginMenuItem.state = UserDefaults.standard.bool(forKey: Constants.KeyPreferenceLaunchAtLogin) ? NSOnState : NSOffState
     }
 
     private func setIntervalMenuState() {

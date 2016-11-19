@@ -11,4 +11,6 @@ import Foundation
 struct Constants {
     static let ErrorDomain = "net.mtgto.madoka"
     static let KeyPreferenceIntervalIndex = "Interval"
+    static let KeyPreferenceLaunchAtLogin = "LaunchAtLogin"
+    static let HelperBundleIdentifier = "net.mtgto.madokaHelper"
 }

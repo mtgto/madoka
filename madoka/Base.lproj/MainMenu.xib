@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9532"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -701,6 +701,12 @@
                         </items>
                     </menu>
                 </menuItem>
+                <menuItem title="Launch at Login" id="Uf4-V4-MTk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleLaunchAtLogin:" target="dds-PC-fg5" id="bKi-Xj-pDa"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="About madoka" id="hsr-KV-XOI">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
@@ -722,6 +728,7 @@
             <connections>
                 <outlet property="eightHoursMenuItem" destination="yZi-wk-4QA" id="7Vc-SG-N73"/>
                 <outlet property="fourHoursMenuItem" destination="Ks9-dt-zIN" id="MRZ-fh-1vb"/>
+                <outlet property="launchAtLoginMenuItem" destination="Uf4-V4-MTk" id="BZ5-WW-VeS"/>
                 <outlet property="oneHourMenuItem" destination="2ai-dC-gGX" id="3Xn-4r-tPV"/>
                 <outlet property="todayMenuItem" destination="Kel-Ic-jGB" id="mUA-kq-N84"/>
             </connections>

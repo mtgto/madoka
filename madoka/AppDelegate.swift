@@ -18,7 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         UserDefaults.standard.register(
-            defaults: [Constants.KeyPreferenceIntervalIndex: 0]
+            defaults: [
+                Constants.KeyPreferenceIntervalIndex: 0,
+                Constants.KeyPreferenceLaunchAtLogin: false
+            ]
         )
         let notificationCenter = NSWorkspace.shared().notificationCenter
         notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.didActivateApplication(_:)), name: NSNotification.Name.NSWorkspaceDidActivateApplication, object: nil)
