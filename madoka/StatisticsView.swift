@@ -29,16 +29,7 @@ class StatisticsView: NSView {
     }
     
     private var currentContext : CGContext? {
-        get {
-            if #available(OSX 10.10, *) {
-                return NSGraphicsContext.current()?.cgContext
-            } else if let contextPointer: UnsafeMutableRawPointer = NSGraphicsContext.current()?.graphicsPort {
-                let context: CGContext = Unmanaged.fromOpaque(contextPointer).takeUnretainedValue()
-                return context
-            }
-            
-            return nil
-        }
+        return NSGraphicsContext.current?.cgContext
     }
 
     override func viewDidMoveToWindow() {
@@ -50,13 +41,13 @@ class StatisticsView: NSView {
         let cx = self.bounds.width / 2
         let graphSizeRatio: CGFloat = 0.85
         let radius = min(cy * graphSizeRatio, cx * graphSizeRatio)
-        let pi = M_PI
+        let pi = Double.pi
         var radian: CGFloat = CGFloat(pi / 2)
         let context = self.currentContext!
         let lineWidth = Double(self.bounds.width / 4)
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = NSCenterTextAlignment
-        let lineAttributes = [NSForegroundColorAttributeName: NSColor.white, NSFontAttributeName: NSFont.systemFont(ofSize: 12), NSParagraphStyleAttributeName: paragraphStyle]
+        paragraphStyle.alignment = .center
+        let lineAttributes: [NSAttributedString.Key: Any] = [.foregroundColor: NSColor.white, .font: NSFont.systemFont(ofSize: 12), .paragraphStyle: paragraphStyle]
         let truncationToken = CTLineCreateWithAttributedString(NSAttributedString(string: "…", attributes: lineAttributes))
 
         func drawString(_ string: String, posX: CGFloat, posY: CGFloat) {
@@ -116,7 +107,7 @@ class StatisticsView: NSView {
     }
 
     override func mouseDown(with theEvent: NSEvent) {
-        let currentIndex = LegendType.values.index(of: legendType)!
+        let currentIndex = LegendType.values.firstIndex(of: legendType)!
         legendType = LegendType.values[(currentIndex + 1) % LegendType.values.count]
     }
 }

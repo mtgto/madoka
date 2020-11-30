@@ -10,16 +10,10 @@ import Foundation
 import RealmSwift
 
 class LocalizedName: Object {
-    dynamic var applicationIdentifier: String = ""
-    dynamic var localizedName: String = ""
+    @objc dynamic var applicationIdentifier: String = ""
+    @objc dynamic var localizedName: String = ""
     
     override static func primaryKey() -> String? {
         return "localizedName"
-    }
-    
-    convenience init(applicationIdentifier: String, localizedName: String) {
-        self.init()
-        self.applicationIdentifier = applicationIdentifier
-        self.localizedName = localizedName
     }
 }

@@ -10,14 +10,7 @@ import Foundation
 import RealmSwift
 
 class Statistic: Object {
-    dynamic var start: Date = Date()
-    dynamic var end: Date = Date()
-    dynamic var applicationIdentifier: String = ""
-    
-    convenience init(start: Date, end: Date, applicationIdentifier: String) {
-        self.init()
-        self.start = start
-        self.end = end
-        self.applicationIdentifier = applicationIdentifier
-    }
+    @objc dynamic var start: Date = Date()
+    @objc dynamic var end: Date = Date()
+    @objc dynamic var applicationIdentifier: String = ""
 }

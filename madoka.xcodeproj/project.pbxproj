@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,15 +21,13 @@
 		CEB5AFE11B5D40D300B79313 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEB5AFE01B5D40D300B79313 /* Localizable.strings */; };
 		CEB5AFE31B5D43C100B79313 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFE21B5D43C100B79313 /* Constants.swift */; };
 		CEB5AFE51B5F0E7300B79313 /* MadokaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */; };
-		CEB5B0181B76FDA900B79313 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0161B76FDA900B79313 /* Realm.framework */; };
-		CEB5B0191B76FDA900B79313 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0161B76FDA900B79313 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		CEB5B01A1B76FDA900B79313 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0171B76FDA900B79313 /* RealmSwift.framework */; };
-		CEB5B01B1B76FDA900B79313 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CEB5B0171B76FDA900B79313 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CEBBD1321DDFF9D500E642D6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBBD1311DDFF9D500E642D6 /* AppDelegate.m */; };
 		CEBBD1351DDFF9D500E642D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBBD1341DDFF9D500E642D6 /* main.m */; };
 		CEBBD1371DDFF9D500E642D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBBD1361DDFF9D500E642D6 /* Assets.xcassets */; };
 		CEBBD1411DDFFA8700E642D6 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEBBD1401DDFFA8700E642D6 /* MainMenu.xib */; };
 		CEBBD1431DDFFF6300E642D6 /* madokaHelper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = CEBBD12E1DDFF9D500E642D6 /* madokaHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CEEFC5E4257525DF008D9636 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = CEEFC5E3257525DF008D9636 /* Realm */; };
+		CEEFC5E6257525DF008D9636 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CEEFC5E5257525DF008D9636 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +47,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				CEB5B01B1B76FDA900B79313 /* RealmSwift.framework in Embed Frameworks */,
-				CEB5B0191B76FDA900B79313 /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,7 +69,7 @@
 		CE6D15AC1C5E0D8A00244F2A /* StatisticsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticsViewController.swift; sourceTree = "<group>"; };
 		CE805A0E1C679946004DE508 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		CEB27FAF1C5C48AF0051F5E1 /* StatusMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
-		CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = madoka/MyPlayground.playground; sourceTree = "<group>"; };
+		CEB27FB11C5C4CBB0051F5E1 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; name = MyPlayground.playground; path = madoka/MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CEB27FB21C5CB0DC0051F5E1 /* Statistic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
 		CEB27FB41C5CB2200051F5E1 /* LocalizedName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedName.swift; sourceTree = "<group>"; };
 		CEB5AFBD1B5D089600B79313 /* madoka.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = madoka.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,8 +84,6 @@
 		CEB5AFE21B5D43C100B79313 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CEB5AFE41B5F0E7300B79313 /* MadokaService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MadokaService.swift; sourceTree = "<group>"; };
 		CEB5B0111B6C548400B79313 /* madoka.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = madoka.entitlements; sourceTree = "<group>"; };
-		CEB5B0161B76FDA900B79313 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = ../Carthage/Build/Mac/Realm.framework; sourceTree = "<group>"; };
-		CEB5B0171B76FDA900B79313 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = ../Carthage/Build/Mac/RealmSwift.framework; sourceTree = "<group>"; };
 		CEBBD12E1DDFF9D500E642D6 /* madokaHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = madokaHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBBD1301DDFF9D500E642D6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEBBD1311DDFF9D500E642D6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -105,8 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEB5B01A1B76FDA900B79313 /* RealmSwift.framework in Frameworks */,
-				CEB5B0181B76FDA900B79313 /* Realm.framework in Frameworks */,
+				CEEFC5E6257525DF008D9636 /* RealmSwift in Frameworks */,
+				CEEFC5E4257525DF008D9636 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,8 +167,6 @@
 				CEB5AFC11B5D089600B79313 /* Info.plist */,
 				CEB5AFE01B5D40D300B79313 /* Localizable.strings */,
 				CEB5B0111B6C548400B79313 /* madoka.entitlements */,
-				CEB5B0161B76FDA900B79313 /* Realm.framework */,
-				CEB5B0171B76FDA900B79313 /* RealmSwift.framework */,
 				CE805A0E1C679946004DE508 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -237,6 +229,10 @@
 			dependencies = (
 			);
 			name = madoka;
+			packageProductDependencies = (
+				CEEFC5E3257525DF008D9636 /* Realm */,
+				CEEFC5E5257525DF008D9636 /* RealmSwift */,
+			);
 			productName = madoka;
 			productReference = CEB5AFBD1B5D089600B79313 /* madoka.app */;
 			productType = "com.apple.product-type.application";
@@ -322,10 +318,14 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
 			mainGroup = CEB5AFB41B5D089600B79313;
+			packageReferences = (
+				CEEFC5E2257525DF008D9636 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = CEB5AFBE1B5D089600B79313 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -462,7 +462,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -502,10 +502,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -522,11 +523,14 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = madoka/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtgto.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -543,11 +547,14 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = madoka/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtgto.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -565,7 +572,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = madokaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtgto.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -583,7 +594,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = madokaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.mtgto.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -603,8 +618,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = W3A6B7FDC7;
 				INFOPLIST_FILE = madokaHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = net.mtgto.madokaHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -623,8 +641,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = W3A6B7FDC7;
 				INFOPLIST_FILE = madokaHelper/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = net.mtgto.madokaHelper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -668,8 +689,33 @@
 				CEBBD13D1DDFF9D500E642D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEEFC5E2257525DF008D9636 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEEFC5E3257525DF008D9636 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEEFC5E2257525DF008D9636 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		CEEFC5E5257525DF008D9636 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEEFC5E2257525DF008D9636 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CEB5AFB51B5D089600B79313 /* Project object */;
 }

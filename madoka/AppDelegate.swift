@@ -23,12 +23,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 Constants.KeyPreferenceLaunchAtLogin: false
             ]
         )
-        let notificationCenter = NSWorkspace.shared().notificationCenter
-        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.didActivateApplication(_:)), name: NSNotification.Name.NSWorkspaceDidActivateApplication, object: nil)
-        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.willSleep(_:)), name: NSNotification.Name.NSWorkspaceWillSleep, object: nil)
-        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.didWake(_:)), name: NSNotification.Name.NSWorkspaceDidWake, object: nil)
-        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.sessionDidResignActive(_:)), name: NSNotification.Name.NSWorkspaceSessionDidResignActive, object: nil)
-        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.sessionDidBecomeActive(_:)), name: NSNotification.Name.NSWorkspaceSessionDidBecomeActive, object: nil)
+        let notificationCenter = NSWorkspace.shared.notificationCenter
+        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.didActivateApplication(_:)), name: NSWorkspace.didActivateApplicationNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.willSleep(_:)), name: NSWorkspace.willSleepNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.didWake(_:)), name: NSWorkspace.didWakeNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.sessionDidResignActive(_:)), name: NSWorkspace.sessionDidResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self.madokaService, selector: #selector(MadokaService.sessionDidBecomeActive(_:)), name: NSWorkspace.sessionDidBecomeActiveNotification, object: nil)
         setupStatusMenu()
     }
 
@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - User defined functions
 
     func setupStatusMenu() {
-        let statusBar = NSStatusBar.system()
+        let statusBar = NSStatusBar.system
         statusItem = statusBar.statusItem(withLength: -1) // NSVariableStatusItemLength
         statusItem.highlightMode = true
         let menuImage: NSImage! = NSImage(named: "Menu")

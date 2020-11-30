@@ -40,14 +40,14 @@ class MadokaService: NSObject {
         var localizedNames: [String: String] = [:]
         realm.objects(LocalizedName.self)
             .forEach { (element: LocalizedName) in
-                localizedNames[element.applicationIdentifier] = element.localizedName;
+                localizedNames[element.applicationIdentifier] = element.localizedName
             }
         self.localizedNames = localizedNames
         self.statistics = Array<Statistic>(realm.objects(Statistic.self).filter("end >= %@", Date(timeIntervalSinceNow: -24 * 60 * 60)))
             .map {
                 (applicationIdentifier: $0.applicationIdentifier, since: $0.start.timeIntervalSinceReferenceDate, $0.end.timeIntervalSince($0.start as Date))
             }
-        if let application: NSRunningApplication = NSWorkspace.shared().frontmostApplication {
+        if let application: NSRunningApplication = NSWorkspace.shared.frontmostApplication {
             if let applicationIdentfier = application.bundleIdentifier {
                 if let localizedName = application.localizedName {
                     self.localizedNames[applicationIdentfier] = localizedName
@@ -60,9 +60,9 @@ class MadokaService: NSObject {
     /**
      * Be invoked from NSNotifacionCenter when active application has changed.
      */
-    func didActivateApplication(_ notification: Notification?) {
+    @objc func didActivateApplication(_ notification: Notification?) {
         if let userInfo: [String: AnyObject] = notification?.userInfo as? [String: AnyObject] {
-            if let application: NSRunningApplication = userInfo[NSWorkspaceApplicationKey] as? NSRunningApplication {
+            if let application: NSRunningApplication = userInfo[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication {
                 self.applicationChanged(application)
             }
         }
@@ -71,15 +71,15 @@ class MadokaService: NSObject {
     /**
      * Be invoked from NSNotifacionCenter when computer is going to sleep.
      */
-    func willSleep(_ notification: Notification?) {
+    @objc func willSleep(_ notification: Notification?) {
         applicationChanged(nil)
     }
 
     /**
      * Be invoked from NSNotifacionCenter when computer wake.
      */
-    func didWake(_ notification: Notification?) {
-        if let application = NSWorkspace.shared().frontmostApplication {
+    @objc func didWake(_ notification: Notification?) {
+        if let application = NSWorkspace.shared.frontmostApplication {
             applicationChanged(application)
         }
     }
@@ -94,15 +94,15 @@ class MadokaService: NSObject {
     /**
      * Be invoked from NSNotifacionCenter when user switched out.
      */
-    func sessionDidResignActive(_ notification: Notification?) {
+    @objc func sessionDidResignActive(_ notification: Notification?) {
         applicationChanged(nil)
     }
 
     /**
      * Be invoked from NSNotifacionCenter when user switched in.
      */
-    func sessionDidBecomeActive(_ notification: Notification?) {
-        if let application = NSWorkspace.shared().frontmostApplication {
+    @objc func sessionDidBecomeActive(_ notification: Notification?) {
+        if let application = NSWorkspace.shared.frontmostApplication {
             applicationChanged(application)
         }
     }
@@ -163,20 +163,30 @@ class MadokaService: NSObject {
     
     private func updateUsingApp(_ lastUsingApp: UsingApplication, duration: TimeInterval) {
         let realm = try! Realm()
-        let statistic: Statistic = Statistic(start: lastUsingApp.since, end: lastUsingApp.since.addingTimeInterval(duration), applicationIdentifier: lastUsingApp.applicationIdentifier)
-        let localizedName: LocalizedName = LocalizedName(applicationIdentifier: lastUsingApp.applicationIdentifier, localizedName: lastUsingApp.localizedName)
+        let statistic: Statistic = Statistic()
+        statistic.start = lastUsingApp.since
+        statistic.end = lastUsingApp.since.addingTimeInterval(duration)
+        statistic.applicationIdentifier = lastUsingApp.applicationIdentifier
+        let localizedName: LocalizedName
+        if let localized = realm.object(ofType: LocalizedName.self, forPrimaryKey: lastUsingApp.localizedName) {
+            localizedName = localized
+        } else {
+            localizedName = LocalizedName()
+            localizedName.applicationIdentifier = lastUsingApp.applicationIdentifier
+            localizedName.localizedName = lastUsingApp.localizedName
+        }
         try! realm.write {
             realm.add(statistic)
-            realm.add(localizedName, update: true)
+            realm.add(localizedName)
         }
-        self.statistics.append(applicationIdentifier: lastUsingApp.applicationIdentifier, since: lastUsingApp.since.timeIntervalSinceReferenceDate, duration: duration)
+        self.statistics.append((applicationIdentifier: lastUsingApp.applicationIdentifier, since: lastUsingApp.since.timeIntervalSinceReferenceDate, duration: duration))
     }
 
     private class func applicationIconWithBundleIdentifier(_ identifier: String) -> NSImage? {
-        guard let path = NSWorkspace.shared().absolutePathForApplication(withBundleIdentifier: identifier) else {
+        guard let path = NSWorkspace.shared.absolutePathForApplication(withBundleIdentifier: identifier) else {
             return nil
         }
         debugPrint("path: \(path)")
-        return NSWorkspace.shared().icon(forFile: path)
+        return NSWorkspace.shared.icon(forFile: path)
     }
 }

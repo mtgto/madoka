@@ -64,11 +64,11 @@ class StatusMenuController: NSObject, NSMenuDelegate {
     }
     
     @IBAction func toggleLaunchAtLogin(_ sender: Any) {
-        if sender as! NSMenuItem == self.launchAtLoginMenuItem {
+        if sender as? NSMenuItem == self.launchAtLoginMenuItem {
             let status = !UserDefaults.standard.bool(forKey: Constants.KeyPreferenceLaunchAtLogin)
             if SMLoginItemSetEnabled(Constants.HelperBundleIdentifier as CFString, status) {
                 UserDefaults.standard.set(status, forKey: Constants.KeyPreferenceLaunchAtLogin)
-                self.launchAtLoginMenuItem.state = status ? NSOnState : NSOffState
+                self.launchAtLoginMenuItem.state = status ? .on : .off
             } else {
                 let alert = NSAlert()
                 alert.messageText = NSLocalizedString("Error", comment: "Error")
@@ -78,24 +78,25 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         }
     }
 
-    @IBAction func menuSelected(_ sender: AnyObject) {
-        oneHourMenuItem.state = NSOffState
-        fourHoursMenuItem.state = NSOffState
-        eightHoursMenuItem.state = NSOffState
-        todayMenuItem.state = NSOffState
-
-        if sender as! NSObject == oneHourMenuItem {
-            oneHourMenuItem.state = NSOnState
-            intervalIndex = .oneHour
-        } else if sender as! NSObject == fourHoursMenuItem {
-            fourHoursMenuItem.state = NSOnState
-            intervalIndex = .fourHours
-        } else if sender as! NSObject == eightHoursMenuItem {
-            eightHoursMenuItem.state = NSOnState
-            intervalIndex = .eightHours
-        } else if sender as! NSObject == todayMenuItem {
-            todayMenuItem.state = NSOnState
-            intervalIndex = .today
+    @IBAction func menuSelected(_ sender: Any) {
+        oneHourMenuItem.state = .off
+        fourHoursMenuItem.state = .off
+        eightHoursMenuItem.state = .off
+        todayMenuItem.state = .off
+        if let menuItem = sender as? NSMenuItem {
+            if menuItem == oneHourMenuItem {
+                oneHourMenuItem.state = .on
+                intervalIndex = .oneHour
+            } else if menuItem == fourHoursMenuItem {
+                fourHoursMenuItem.state = .on
+                intervalIndex = .fourHours
+            } else if menuItem == eightHoursMenuItem {
+                eightHoursMenuItem.state = .on
+                intervalIndex = .eightHours
+            } else if menuItem == todayMenuItem {
+                todayMenuItem.state = .on
+                intervalIndex = .today
+            }
         }
         UserDefaults.standard.set(intervalIndex.rawValue, forKey: Constants.KeyPreferenceIntervalIndex)
     }
@@ -127,25 +128,25 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         if applicationStatistics.isEmpty {
             menuItem.title = NSLocalizedString("No app is used one minute or more", comment: "No app is used one minute or more")
         } else {
-            let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: Bundle.main)!
+            let viewController: StatisticsViewController = StatisticsViewController(nibName: "StatisticsViewController", bundle: Bundle.main)
             viewController.updateData(applicationStatistics.enumerated().map { (legend: $0.1.name, color:self.colors[$0.0 % self.colors.count], ratio: Float($0.1.duration / totalDuration), icon: $0.1.icon) })
             menuItem.view = viewController.view
         }
         menu.insertItem(menuItem, at: applicationStatistics.count)
         self.setIntervalMenuState()
-        self.launchAtLoginMenuItem.state = UserDefaults.standard.bool(forKey: Constants.KeyPreferenceLaunchAtLogin) ? NSOnState : NSOffState
+        self.launchAtLoginMenuItem.state = UserDefaults.standard.bool(forKey: Constants.KeyPreferenceLaunchAtLogin) ? .on : .off
     }
 
     private func setIntervalMenuState() {
         switch self.intervalIndex {
         case .oneHour:
-            oneHourMenuItem.state = NSOnState
+            oneHourMenuItem.state = .on
         case .fourHours:
-            fourHoursMenuItem.state = NSOnState
+            fourHoursMenuItem.state = .on
         case .eightHours:
-            eightHoursMenuItem.state = NSOnState
+            eightHoursMenuItem.state = .on
         case .today:
-            todayMenuItem.state = NSOnState
+            todayMenuItem.state = .on
         }
     }
 
@@ -155,7 +156,7 @@ class StatusMenuController: NSObject, NSMenuDelegate {
         let newSize = NSMakeSize(width, height)
         let newImage = NSImage(size: newSize)
         newImage.lockFocus()
-        NSGraphicsContext.current()?.imageInterpolation = .high
+        NSGraphicsContext.current?.imageInterpolation = .high
         source.draw(in: NSMakeRect(0, 0, width, height), from: NSMakeRect(0, 0, source.size.width, source.size.height), operation: .copy, fraction: 1.0)
         newImage.unlockFocus()
         return newImage
